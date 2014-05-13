@@ -1,11 +1,11 @@
 # NetBeans specific #
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
+/QueryContainment/nbproject/private/
+/QueryContainment/build/
+/QueryContainment/nbbuild/
+/QueryContainment/dist/
+/QueryContainment/nbdist/
+/QueryContainment/nbactions.xml
+/QueryContainment/nb-configuration.xml
 
 # Class Files #
 *.class
@@ -14,4 +14,3 @@ nb-configuration.xml
 *.jar
 *.war
 *.ear
-/QueryContainment/nbproject/private/
