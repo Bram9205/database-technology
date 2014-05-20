@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -41,7 +42,21 @@ public class Relation {
 		this.attributes.add(attribute);
 	}
 	
+	public String getName(){
+		return this.name;
+	}
+	
 	public static String generateRandomName(int length){
-		throw new UnsupportedOperationException();
+		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		char[] result = new char[length];
+		Random random = new Random();
+		for(int i = 0; i < length; i++){
+			result[i] = alphabet.charAt(random.nextInt(52));
+		}
+		return new String(result);
+	}
+	
+	public static String generateRandomName(){
+		return generateRandomName(defaultNameLength);
 	}
 }
