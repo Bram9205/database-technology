@@ -4,6 +4,8 @@ package main;
 import data.Query;
 import tree.Tree;
 import java.sql.*;
+import java.util.ArrayList;
+
 import tree.Node;
 
 public class Main {	
@@ -51,14 +53,23 @@ public class Main {
 
             sql = "SELECT * FROM querydb.ab WHERE EXISTS( SELECT * FROM querydb.bcd WHERE EXISTS(SELECT * FROM querydb.db WHERE querydb.bcd.d = querydb.db.d AND querydb.bcd.b = querydb.db.b) AND EXISTS (SELECT * FROM querydb.bc WHERE querydb.bcd.b = querydb.bc.b AND querydb.bcd.c = querydb.bc.c) AND querydb.ab.b = querydb.bcd.b);";
             stmt = connection.createStatement();
-            ResultSet RS = stmt.executeQuery(sql);
 
-            int i = 1;
+
+
+            ResultSet RS = stmt.executeQuery(sql);
+            ResultSetMetaData metadata = RS.getMetaData();
+            int numberOfColumns = metadata.getColumnCount();
+            ArrayList<String> arrayList = new ArrayList<String>();
+
             while(RS.next() != false)
             {
-                System.out.print(RS.getString(i++));
+                int i = 1;
+                while(i <= numberOfColumns) {
+                    //arrayList.add(RS.getString(i++));
+                    System.out.print(RS.getString(i));
+                }
             }
-            System.out.println(RS.getString(i++));
+
 
             stmt.executeUpdate("DROP TABLE querydb.ab;");
             stmt.executeUpdate("DROP TABLE querydb.bcd;");
