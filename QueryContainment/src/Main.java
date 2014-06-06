@@ -129,10 +129,10 @@ public class Main {
                 System.out.println(RS.getString(1));
             }
 
-            stmt.executeUpdate("DROP TABLE ab");
-            stmt.executeUpdate("DROP TABLE bcd");
-            stmt.executeUpdate("DROP TABLE bc");
-            stmt.executeUpdate("DROP TABLE db");
+            stmt.executeUpdate("DROP TABLE querydb.ab;");
+            stmt.executeUpdate("DROP TABLE querydb.bcd;");
+            stmt.executeUpdate("DROP TABLE querydb.bc;");
+            stmt.executeUpdate("DROP TABLE querydb.db;");
 
 
 
