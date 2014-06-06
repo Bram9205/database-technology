@@ -4,18 +4,9 @@ package main;
 import data.Query;
 import tree.Tree;
 import java.sql.*;
+import tree.Node;
 
-public class Main {
-	
-	private static String treeToSQL(Tree tree){
-		//Add the table creation
-		return subtreeToSQL("", tree.getRoot());
-	}
-	
-	private static String subtreeToSQL(String partialQuery, Node rootNode){
-		String additive = "SELECT * FROM ";
-		throw new UnsupportedOperationException("not yet implemented");
-	}
+public class Main {	
 	
 	private static void test(){
 		Query query = QueryGenerator.generateCyclicQueryWidth2(3);
