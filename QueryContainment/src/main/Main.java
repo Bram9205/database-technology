@@ -44,7 +44,7 @@ public class Main {
             stmt.executeUpdate("CREATE TABLE bc (b varchar(20), c varchar(20));");
             stmt.executeUpdate("CREATE TABLE db (d varchar(20), b varchar(20));");
             stmt.executeUpdate("INSERT INTO ab(a, b) VALUES ('x', 'y');");
-            stmt.executeUpdate("INSERT INTO bcd(b, c ,d) VALUES ('y', 'y', 'z'), ('y', 'y', 'z'), ('y', 'y', 'z');");
+            stmt.executeUpdate("INSERT INTO bcd(b, c ,d) VALUES ('y', 'y', 'z'), ('y', 'z', 'y'), ('y', 'z', 'z');");
             stmt.executeUpdate("INSERT INTO bc(b, c) VALUES ('y', 'z');");
             stmt.executeUpdate("INSERT INTO db(d, b) VALUES ('z', 'y');");
 
@@ -57,11 +57,11 @@ public class Main {
                 System.out.println(RS.getString(1));
             }
 
-           /* stmt.executeUpdate("DROP TABLE querydb.ab;");
+            stmt.executeUpdate("DROP TABLE querydb.ab;");
             stmt.executeUpdate("DROP TABLE querydb.bcd;");
             stmt.executeUpdate("DROP TABLE querydb.bc;");
             stmt.executeUpdate("DROP TABLE querydb.db;");
-             */
+
 
 
 
