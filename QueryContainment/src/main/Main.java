@@ -57,11 +57,11 @@ public class Main {
                 System.out.println(RS.getString(1));
             }
 
-            stmt.executeUpdate("DROP TABLE querydb.ab;");
+           /* stmt.executeUpdate("DROP TABLE querydb.ab;");
             stmt.executeUpdate("DROP TABLE querydb.bcd;");
             stmt.executeUpdate("DROP TABLE querydb.bc;");
             stmt.executeUpdate("DROP TABLE querydb.db;");
-
+             */
 
 
 
