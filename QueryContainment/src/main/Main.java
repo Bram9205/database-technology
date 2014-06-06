@@ -21,9 +21,9 @@ public class Main {
 		} */
         //From http://stackoverflow.com/questions/2839321/java-connectivity-with-mysql
         try {
-            System.out.println("Loading driver...");
+            //System.out.println("Loading driver...");
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Driver loaded!");
+            //System.out.println("Driver loaded!");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Cannot find the driver in the classpath!", e);
         }
@@ -32,9 +32,9 @@ public class Main {
         String password = "fletcher";
         Connection connection = null;
         try {
-            System.out.println("Connecting database...");
+            //System.out.println("Connecting database...");
             connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Database connected!");
+            //System.out.println("Database connected!");
 
             Statement stmt = connection.createStatement();
             String sql;
@@ -52,9 +52,11 @@ public class Main {
             sql = "SELECT * FROM querydb.ab WHERE EXISTS( SELECT * FROM querydb.bcd WHERE EXISTS(SELECT * FROM querydb.db WHERE querydb.bcd.d = querydb.db.d AND querydb.bcd.b = querydb.db.b) AND EXISTS (SELECT * FROM querydb.bc WHERE querydb.bcd.b = querydb.bc.b AND querydb.bcd.c = querydb.bc.c) AND querydb.ab.b = querydb.bcd.b);";
             stmt = connection.createStatement();
             ResultSet RS = stmt.executeQuery(sql);
+
+            int i = 1;
             while(RS.next() != false)
             {
-                System.out.println(RS.getString(1));
+                System.out.print(RS.getString(i++));
             }
 
             stmt.executeUpdate("DROP TABLE querydb.ab;");
@@ -68,7 +70,7 @@ public class Main {
         } catch (SQLException e) {
             throw new RuntimeException("Cannot connect the database!", e);
         } finally {
-            System.out.println("Closing the connection.");
+            //System.out.println("Closing the connection.");
             if (connection != null) try { connection.close(); } catch (SQLException ignore) {}
         }
 	}
