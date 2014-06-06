@@ -53,11 +53,12 @@ public class Main {
             stmt = connection.createStatement();
             ResultSet RS = stmt.executeQuery(sql);
 
-            int i = 1;
+            int i = 0;
             while(RS.next() != false)
             {
                 System.out.print(RS.getString(i++));
             }
+            System.out.println();
 
             stmt.executeUpdate("DROP TABLE querydb.ab;");
             stmt.executeUpdate("DROP TABLE querydb.bcd;");
