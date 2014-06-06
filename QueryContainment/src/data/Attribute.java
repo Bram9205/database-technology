@@ -8,13 +8,13 @@ public class Attribute {
 	/**
 	 * Just for comparing types
 	 */
-	private int type;
+	private String type;
 	
-	public Attribute(int type){
+	public Attribute(String type){
 		this.type = type;
 	}
 	
-	public int getType(){
+	public String getType(){
 		return type;
 	}
 }

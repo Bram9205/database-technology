@@ -11,15 +11,18 @@ public class Query {
 	 * The relations that define the query
 	 */
 	private ArrayList<Relation> relations;
+	private Relation head;
 
-	public Query(ArrayList<Relation> relations){
+	public Query(ArrayList<Relation> relations, Relation head){
 		this.relations = relations;
+		this.head = head;
 	}
 	
 	/**
 	 * Add relations to the query later
 	 */
 	public Query(){
+		this.relations = new ArrayList<>();
 	}
 	
 	/**
@@ -28,5 +31,24 @@ public class Query {
 	 */
 	public void addRelation(Relation relation){
 		this.relations.add(relation);
+	}
+	
+	public ArrayList<Relation> getRelations(){
+		return relations;
+	}
+	
+	public Relation getHead(){
+		return this.head;
+	}
+	
+	public void setHead(Relation head){
+		this.head = head;
+	}
+	
+	/**
+	 * Assumes relations is not empty
+	 */
+	public void setHeadToFirstRelation(){
+		this.head = relations.get(0);
 	}
 }

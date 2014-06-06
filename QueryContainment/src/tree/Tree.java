@@ -26,4 +26,8 @@ public class Tree {
 	public void addNode(Node node){
 		this.nodes.add(node);
 	}
+	
+	public Node getRoot(){
+		return this.root;
+	}
 }

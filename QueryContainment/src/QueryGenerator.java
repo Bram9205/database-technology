@@ -1,5 +1,7 @@
 
+import data.Attribute;
 import data.Query;
+import data.Relation;
 import java.util.ArrayList;
 
 /**
@@ -7,37 +9,44 @@ import java.util.ArrayList;
  * @author Bram
  */
 public class QueryGenerator {
-	public static final int defaultMinAttributes = 2;
-	public static final int defaultMaxAttributes = 6;
-	public static final int defaultMinRelations = 100;
-	public static final int defaultMaxRelations = 200;
-	public static final int defaultAmount = 1;
-	
+	public static String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	/**
-	 * You can use default{ParameterName} for variables.
-	 * @param nrQueries
-	 * @param nrRelations
-	 * @param minAttributes
-	 * @param maxAttributes
-	 * @return 
+	 * 
+	 * @param n Number of nodes in the cycle
+	 * @return A cyclic query with n relations
 	 */
-	public static ArrayList<Query> GenerateQueries(int amount, int minRelations, int maxRelations, int minAttributes, int maxAttributes){
-		//For amount, generate query, which contain between min and max relations, which have between min and max attributes
-		throw new UnsupportedOperationException("Not yet implemented");
+	public static Query generateCyclicQueryWidth2(int n){
+		Query result = new Query();
+		Attribute previous = new Attribute(getAttributeName(0));
+		for(int i = 0; i < n; i++){
+			Relation relation = new Relation("s"+n);
+			relation.addAttribute(previous);
+			Attribute next = new Attribute(getAttributeName(i+1));
+			relation.addAttribute(next);
+			result.addRelation(relation);
+			previous = next;
+		}
+		Relation relation = new Relation("s"+(n+1));
+		relation.addAttribute(previous);
+		relation.addAttribute(result.getRelations().get(0).getAttributes().get(0));
+		result.addRelation(relation);
+		result.setHeadToFirstRelation();
+		return result;
 	}
 	
-	public static ArrayList<Query> generateChainQueries(int amount, int minRelations, int maxRelations, int minAttributes, int maxAttributes){
-		//For amount, generate query, which contain between min and max relations, which have between min and max attributes
-		throw new UnsupportedOperationException("Not yet implemented");
+	private static String getAttributeName(int x){
+		String result = "";
+		result += alphabet.charAt(x%26);
+		result += x/26;
+		return result;
 	}
 	
-	public static ArrayList<Query> generateTreeQueries(int amount, int minRelations, int maxRelations, int minAttributes, int maxAttributes){
-		//For amount, generate query, which contain between min and max relations, which have between min and max attributes
-		throw new UnsupportedOperationException("Not yet implemented");
+	public static void main(String[] args){
+		Query result = generateCyclicQueryWidth2(30);
+		System.out.print("Q"+result.getHead().toString()+":-");
+		for(int i = 0; i < result.getRelations().size(); i++){
+			System.out.print(result.getRelations().get(i).toString() + ", ");
+		}
 	}
-	
-	public static ArrayList<Query> generateDoubleChainQueries(int amount, int minRelations, int maxRelations, int minAttributes, int maxAttributes){
-		//For amount, generate query, which contain between min and max relations, which have between min and max attributes
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
+
 }

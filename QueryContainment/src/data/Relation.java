@@ -13,6 +13,15 @@ public class Relation {
 	private static final int defaultNameLength = 5;
 	
 	/**
+	 * No attributes initially
+	 * @param name the name
+	 */
+	public Relation(String name){
+		this.name = name;
+		this.attributes = new ArrayList<>();
+	}
+	
+	/**
 	 * 
 	 * @param attributes
 	 * @param relationName 
@@ -36,6 +45,7 @@ public class Relation {
 	 */
 	public Relation(){
 		this.name = generateRandomName(defaultNameLength);
+		this.attributes = new ArrayList<>();
 	}
 	
 	public void addAttribute(Attribute attribute){
@@ -44,6 +54,10 @@ public class Relation {
 	
 	public String getName(){
 		return this.name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
 	}
 	
 	public static String generateRandomName(int length){
@@ -58,5 +72,18 @@ public class Relation {
 	
 	public static String generateRandomName(){
 		return generateRandomName(defaultNameLength);
+	}
+	
+	public ArrayList<Attribute> getAttributes(){
+		return this.attributes;
+	}
+	
+	@Override
+	public String toString(){
+		String result = "(";
+		for(int i = 0; i< this.attributes.size(); i++){
+			result += this.attributes.get(i).getType() + ",";
+		}
+		return result + ")";
 	}
 }
