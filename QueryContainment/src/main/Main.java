@@ -1,3 +1,5 @@
+package main;
+
 
 import data.Query;
 import tree.Tree;
@@ -5,18 +7,24 @@ import tree.Tree;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import tree.Node;
 
 public class Main {
 	
-	private static void treeToSQL(Query query){
+	private static String treeToSQL(Tree tree){
+		//Add the table creation
+		return subtreeToSQL("", tree.getRoot());
+	}
+	
+	private static String subtreeToSQL(String partialQuery, Node rootNode){
+		String additive = "SELECT * FROM ";
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 	
-	
 	private static void test(){
-		Query query = QueryGenerator.generateCyclicQueryWidth2(2500);
+		Query query = QueryGenerator.generateCyclicQueryWidth2(3);
 		Tree tree = Tree.createFromCyclicQueryWidth2(query);
-		System.out.println(tree.toString());
+		System.out.println(SQLGenerator.generateTables(tree));
 	}
 	
 	public static void main(String[] args){

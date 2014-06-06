@@ -1,3 +1,5 @@
+package main;
+
 
 import data.Attribute;
 import data.Query;
@@ -19,14 +21,14 @@ public class QueryGenerator {
 		Query result = new Query();
 		Attribute previous = new Attribute(getAttributeName(0));
 		for(int i = 0; i < n; i++){
-			Relation relation = new Relation("s"+n);
+			Relation relation = new Relation("s"+i);
 			relation.addAttribute(previous);
 			Attribute next = new Attribute(getAttributeName(i+1));
 			relation.addAttribute(next);
 			result.addRelation(relation);
 			previous = next;
 		}
-		Relation relation = new Relation("s"+(n+1));
+		Relation relation = new Relation("s"+n);
 		relation.addAttribute(previous);
 		relation.addAttribute(result.getRelations().get(0).getAttributes().get(0));
 		result.addRelation(relation);
