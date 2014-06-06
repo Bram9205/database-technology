@@ -41,59 +41,7 @@ public class Main {
 
             Statement stmt = connection.createStatement();
             String sql;
-            /*String sql = "CREATE TABLE ab \n" +
-                    "\t(\n" +
-                    "     a varchar(20), \n" +
-                    "     b varchar(20)\n" +
-                    "     \n" +
-                    "    );\n" +
-                    "\n" +
-                    "CREATE TABLE bcd \n" +
-                    "\t(\n" +
-                    "     b varchar(20), \n" +
-                    "     c varchar(20),\n" +
-                    "     d varchar(20)\n" +
-                    "     \n" +
-                    "    );\n" +
-                    "CREATE TABLE bc\n" +
-                    "\t(\n" +
-                    "     b varchar(20), \n" +
-                    "     c varchar(20)\n" +
-                    "     \n" +
-                    "    );\n" +
-                    "CREATE TABLE db\n" +
-                    "\t(\n" +
-                    "     d varchar(20), \n" +
-                    "     b varchar(20)\n" +
-                    "     \n" +
-                    "    );\n" +
-                    "\n" +
-                    "\n" +
-                    "INSERT INTO ab\n" +
-                    "(a, b)\n" +
-                    "VALUES\n" +
-                    "('x', 'y');\n" +
-                    "\n" +
-                    "INSERT INTO bcd\n" +
-                    "(b, c, d)\n" +
-                    "VALUES\n" +
-                    "('y', 'y', 'z'),\n" +
-                    "('y', 'z', 'y'),\n" +
-                    "('y', 'z', 'z');\n" +
-                    "\n" +
-                    "\n" +
-                    "INSERT INTO bc\n" +
-                    "(b, c)\n" +
-                    "VALUES\n" +
-                    "('y', 'z');\n" +
-                    "\n" +
-                    "INSERT INTO db\n" +
-                    "(d, b)\n" +
-                    "VALUES\n" +
-                    "('z', 'y');\n" +
-                    "\n";
-             */
-            //stmt.executeUpdate(sql);
+
             stmt.executeUpdate("CREATE TABLE ab (a varchar(20), b varchar(20));");
             stmt.executeUpdate("CREATE TABLE bcd (b varchar(20), c varchar(20), d varchar(20));");
             stmt.executeUpdate("CREATE TABLE bc (b varchar(20), c varchar(20));");
@@ -104,24 +52,21 @@ public class Main {
             stmt.executeUpdate("INSERT INTO db(d, b) VALUES ('z', 'y');");
 
 
-            sql = "select *\n" +
-                    "from ab\n" +
-                    "where exists(\n" +
-                    "    select * \n" +
-                    "    from bcd\n" +
-                    "    where exists(\n" +
-                    "      select *\n" +
-                    "      from db\n" +
-                    "      where bcd.d = db.d AND bcd.b = db.b\n" +
-                    "      ) and exists (\n" +
-                    "      select *\n" +
-                    "      from bc \n" +
-                    "      where bcd.b = bc.b AND bcd.c = bc.c\n" +
-                    "      ) and ab.b = bcd.b\n" +
-                    "  )\n" +
-                    "\n" +
-                    "\n";
-
+            sql = "select *" +
+                    "from ab" +
+                    "where exists(" +
+                    "    select * " +
+                    "    from bcd" +
+                    "    where exists(" +
+                    "      select *" +
+                    "      from db" +
+                    "      where bcd.d = db.d AND bcd.b = db.b" +
+                    "      ) and exists (" +
+                    "      select *" +
+                    "      from bc " +
+                    "      where bcd.b = bc.b AND bcd.c = bc.c" +
+                    "      ) and ab.b = bcd.b" +
+                    "  );";
             stmt = connection.createStatement();
             ResultSet RS = stmt.executeQuery(sql);
             while(RS.next() != false)
