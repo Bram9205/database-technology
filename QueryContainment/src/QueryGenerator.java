@@ -22,8 +22,22 @@ public class QueryGenerator {
 	 * @return 
 	 */
 	public static ArrayList<Query> GenerateQueries(int amount, int minRelations, int maxRelations, int minAttributes, int maxAttributes){
-		//For nrQueries, generate query, which contain between min and max relations, which have between min and max attributes
+		//For amount, generate query, which contain between min and max relations, which have between min and max attributes
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 	
+	public static ArrayList<Query> generateChainQueries(int amount, int minRelations, int maxRelations, int minAttributes, int maxAttributes){
+		//For amount, generate query, which contain between min and max relations, which have between min and max attributes
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
+	
+	public static ArrayList<Query> generateTreeQueries(int amount, int minRelations, int maxRelations, int minAttributes, int maxAttributes){
+		//For amount, generate query, which contain between min and max relations, which have between min and max attributes
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
+	
+	public static ArrayList<Query> generateDoubleChainQueries(int amount, int minRelations, int maxRelations, int minAttributes, int maxAttributes){
+		//For amount, generate query, which contain between min and max relations, which have between min and max attributes
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
 }
