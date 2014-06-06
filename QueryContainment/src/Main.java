@@ -94,8 +94,8 @@ public class Main {
                     "\n";
              */
             //stmt.executeUpdate(sql);
-            stmt.executeUpdate("CREATE TABLE ab a varchar(20), b varchar(20);");
-            stmt.executeUpdate("CREATE TABLE bcd b varchar(20), c varchar(20), d varchar(20);");
+            stmt.executeUpdate("CREATE TABLE ab (a varchar(20), b varchar(20));");
+            stmt.executeUpdate("CREATE TABLE bcd (b varchar(20), c varchar(20), d varchar(20));");
 
             sql = "select *\n" +
                     "from ab\n" +
