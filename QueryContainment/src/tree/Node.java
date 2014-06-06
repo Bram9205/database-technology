@@ -25,6 +25,31 @@ public class Node {
 		this.attributes = attributes;
 		this.parent = parent;
 		this.parent.addChild(this);
+		this.children = new ArrayList<>();
+	}
+	
+	/**
+	 * Add attributes later. Auto adds itself to parents children.
+	 * @param parent 
+	 */
+	public Node(Node parent){
+		this.parent = parent;
+		this.parent.addChild(this);
+		this.children = new ArrayList<>();
+		this.attributes = new ArrayList<>();
+	}
+	
+	/**
+	 * Create the root node
+	 */
+	public Node(){
+		this.parent = null;
+		this.attributes = new ArrayList<>();
+		this.children = new ArrayList<>();
+	}
+	
+	public void addAttribute(Attribute a){
+		this.attributes.add(a);
 	}
 	
 	public ArrayList<Node> getChildren(){
@@ -45,5 +70,18 @@ public class Node {
 	 */
 	public ArrayList<Attribute> getAttributes(){
 		return attributes;
+	}
+	
+	public String getSubtreeString(){
+		String result = "(";
+		for(int i = 0; i< this.attributes.size(); i++){
+			result += this.attributes.get(i).getType() + ",";
+		}
+		result += ")";
+		if(!children.isEmpty()){
+			result += " -> ";
+			result += children.get(0).getSubtreeString();
+		}
+		return result;
 	}
 }

@@ -42,7 +42,7 @@ public class QueryGenerator {
 	}
 	
 	public static void main(String[] args){
-		Query result = generateCyclicQueryWidth2(30);
+		Query result = generateCyclicQueryWidth2(3);
 		System.out.print("Q"+result.getHead().toString()+":-");
 		for(int i = 0; i < result.getRelations().size(); i++){
 			System.out.print(result.getRelations().get(i).toString() + ", ");

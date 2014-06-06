@@ -1,5 +1,7 @@
 package tree;
 
+import data.Attribute;
+import data.Query;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +18,7 @@ public class Tree {
 	
 	public Tree(Node root){
 		this.root = root;
+		this.nodes = new ArrayList<>();
 	}
 	
 	public Tree(Node root, ArrayList<Node> nodes){
@@ -29,5 +32,32 @@ public class Tree {
 	
 	public Node getRoot(){
 		return this.root;
+	}
+	
+	@Override
+	public String toString(){
+		return this.root.getSubtreeString();
+	}
+	
+	public static Tree createFromCyclicQueryWidth2(Query query){
+		Attribute firstAttribute = query.getRelations().get(0).getAttributes().get(0);
+		Node root = new Node();
+		for(Attribute a : query.getRelations().get(0).getAttributes()){
+			root.addAttribute(a);
+		}
+		Tree result = new Tree(root);
+		Node parent = root;
+		for(int i = 1; i<query.getRelations().size(); i++){
+			Node node = new Node(parent);
+			for(Attribute a : query.getRelations().get(i).getAttributes()){
+				node.addAttribute(a);
+			}
+			if(i != (query.getRelations().size()-1)){
+				node.addAttribute(firstAttribute);
+			}
+			result.addNode(node);
+			parent = node;
+		}
+		return result;
 	}
 }
