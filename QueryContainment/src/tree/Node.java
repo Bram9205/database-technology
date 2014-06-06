@@ -15,6 +15,7 @@ public class Node {
 	private ArrayList<Attribute> attributes;
 	private Node parent;
 	private ArrayList<Node> children;
+	private String name;
 	
 	
 	/**
@@ -48,6 +49,14 @@ public class Node {
 		this.children = new ArrayList<>();
 	}
 	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+	
 	public void addAttribute(Attribute a){
 		this.attributes.add(a);
 	}
@@ -73,7 +82,7 @@ public class Node {
 	}
 	
 	public String getSubtreeString(){
-		String result = "(";
+		String result = this.name+"(";
 		for(int i = 0; i< this.attributes.size(); i++){
 			result += this.attributes.get(i).getType() + ",";
 		}

@@ -45,6 +45,7 @@ public class Tree {
 		for(Attribute a : query.getRelations().get(0).getAttributes()){
 			root.addAttribute(a);
 		}
+		root.setName(query.getRelations().get(0).getName());
 		Tree result = new Tree(root);
 		Node parent = root;
 		for(int i = 1; i<query.getRelations().size(); i++){
@@ -52,6 +53,7 @@ public class Tree {
 			for(Attribute a : query.getRelations().get(i).getAttributes()){
 				node.addAttribute(a);
 			}
+			node.setName(query.getRelations().get(i).getName());
 			if(i != (query.getRelations().size()-1)){
 				node.addAttribute(firstAttribute);
 			}
