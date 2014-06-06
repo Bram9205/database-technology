@@ -98,6 +98,29 @@ public class Main {
             stmt.executeUpdate("CREATE TABLE bcd (b varchar(20), c varchar(20), d varchar(20));");
             stmt.executeUpdate("CREATE TABLE bc (b varchar(20), c varchar(20));");
             stmt.executeUpdate("CREATE TABLE db (d varchar(20), b varchar(20));");
+            stmt.executeUpdate("INSERT INTO ab\n" +
+                    "(a, b)\n" +
+                    "VALUES\n" +
+                    "('x', 'y');\n" +
+                    "\n" +
+                    "INSERT INTO bcd\n" +
+                    "(b, c, d)\n" +
+                    "VALUES\n" +
+                    "('y', 'y', 'z'),\n" +
+                    "('y', 'z', 'y'),\n" +
+                    "('y', 'z', 'z');\n" +
+                    "\n" +
+                    "\n" +
+                    "INSERT INTO bc\n" +
+                    "(b, c)\n" +
+                    "VALUES\n" +
+                    "('y', 'z');\n" +
+                    "\n" +
+                    "INSERT INTO db\n" +
+                    "(d, b)\n" +
+                    "VALUES\n" +
+                    "('z', 'y');\n" +
+                    "\n");
 
             sql = "select *\n" +
                     "from ab\n" +
