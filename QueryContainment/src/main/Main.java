@@ -65,8 +65,7 @@ public class Main {
             {
                 int i = 1;
                 while(i <= numberOfColumns) {
-                    //arrayList.add(RS.getString(i++));
-                    System.out.print(RS.getString(i));
+                    System.out.print(RS.getString(i++));
                 }
             }
 
