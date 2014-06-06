@@ -52,20 +52,20 @@ public class Main {
             stmt.executeUpdate("INSERT INTO db(d, b) VALUES ('z', 'y');");
 
 
-            sql = "select *" +
-                    "from ab" +
-                    "where exists(" +
-                    "    select * " +
-                    "    from bcd" +
-                    "    where exists(" +
-                    "      select *" +
-                    "      from db" +
-                    "      where bcd.d = db.d AND bcd.b = db.b" +
-                    "      ) and exists (" +
-                    "      select *" +
-                    "      from bc " +
-                    "      where bcd.b = bc.b AND bcd.c = bc.c" +
-                    "      ) and ab.b = bcd.b" +
+            sql = "SELECT *" +
+                    "FROM querydb.ab" +
+                    "WHERE EXISTS(" +
+                    "    SELECT * " +
+                    "    FROM querydb.bcd" +
+                    "    WHERE EXISTS(" +
+                    "      SELECT *" +
+                    "      FROM querydb.db" +
+                    "      WHERE querydb.bcd.d = querydb.db.d AND querydb.bcd.b = querydb.db.b" +
+                    "      ) AND EXISTS (" +
+                    "      SELECT *" +
+                    "      FROM querydb.bc " +
+                    "      WHERE querydb.bcd.b = querydb.bc.b AND querydb.bcd.c = querydb.bc.c" +
+                    "      ) AND querydb.ab.b = querydb.bcd.b" +
                     "  );";
             stmt = connection.createStatement();
             ResultSet RS = stmt.executeQuery(sql);
