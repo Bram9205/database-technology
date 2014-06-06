@@ -18,13 +18,13 @@ public class Relation {
 	 */
 	public Relation(String name){
 		this.name = name;
-		this.attributes = new ArrayList<>();
+		this.attributes = new ArrayList<Attribute>();
 	}
 	
 	/**
 	 * 
 	 * @param attributes
-	 * @param relationName 
+	 * @param name
 	 */
 	public Relation(ArrayList<Attribute> attributes, String name){
 		this.attributes = attributes;
@@ -45,7 +45,7 @@ public class Relation {
 	 */
 	public Relation(){
 		this.name = generateRandomName(defaultNameLength);
-		this.attributes = new ArrayList<>();
+		this.attributes = new ArrayList<Attribute>();
 	}
 	
 	public void addAttribute(Attribute attribute){

@@ -26,7 +26,7 @@ public class Node {
 		this.attributes = attributes;
 		this.parent = parent;
 		this.parent.addChild(this);
-		this.children = new ArrayList<>();
+		this.children = new ArrayList<Node>();
 	}
 	
 	/**
@@ -36,8 +36,8 @@ public class Node {
 	public Node(Node parent){
 		this.parent = parent;
 		this.parent.addChild(this);
-		this.children = new ArrayList<>();
-		this.attributes = new ArrayList<>();
+		this.children = new ArrayList<Node>();
+		this.attributes = new ArrayList<Attribute>();
 	}
 	
 	/**
@@ -45,8 +45,8 @@ public class Node {
 	 */
 	public Node(){
 		this.parent = null;
-		this.attributes = new ArrayList<>();
-		this.children = new ArrayList<>();
+		this.attributes = new ArrayList<Attribute>();
+		this.children = new ArrayList<Node>();
 	}
 	
 	public void setName(String name){

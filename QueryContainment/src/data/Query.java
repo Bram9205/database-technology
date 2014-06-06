@@ -22,7 +22,7 @@ public class Query {
 	 * Add relations to the query later
 	 */
 	public Query(){
-		this.relations = new ArrayList<>();
+		this.relations = new ArrayList<Relation>();
 	}
 	
 	/**
