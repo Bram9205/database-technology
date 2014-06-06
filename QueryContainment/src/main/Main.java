@@ -67,6 +67,7 @@ public class Main {
                 while(i <= numberOfColumns) {
                     System.out.print(RS.getString(i++));
                 }
+                System.out.println();
             }
 
 
