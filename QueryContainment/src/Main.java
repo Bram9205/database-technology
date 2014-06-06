@@ -40,7 +40,8 @@ public class Main {
             System.out.println("Database connected!");
 
             Statement stmt = connection.createStatement();
-            String sql = "CREATE TABLE ab \n" +
+            String sql;
+            /*String sql = "CREATE TABLE ab \n" +
                     "\t(\n" +
                     "     a varchar(20), \n" +
                     "     b varchar(20)\n" +
@@ -91,8 +92,10 @@ public class Main {
                     "VALUES\n" +
                     "('z', 'y');\n" +
                     "\n";
-
-            stmt.executeUpdate(sql);
+             */
+            //stmt.executeUpdate(sql);
+            stmt.executeUpdate("CREATE TABLE ab a varchar(20), b varchar(20);");
+            stmt.executeUpdate("CREATE TABLE bcd b varchar(20), c varchar(20), d varchar(20);");
 
             sql = "select *\n" +
                     "from ab\n" +
