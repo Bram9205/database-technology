@@ -14,6 +14,8 @@ public class Main {
 		Query query = QueryGenerator.generateCyclicQueryWidth2(3);
 		Tree tree = Tree.createFromCyclicQueryWidth2(query);
 		System.out.println(SQLGenerator.generateTables(tree));
+
+        System.out.println(SQLGenerator.generateQuery(tree));
 	}
 	
 	public static void main(String[] args){
