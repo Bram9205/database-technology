@@ -18,7 +18,7 @@ public class Tree {
 	
 	public Tree(Node root){
 		this.root = root;
-		this.nodes = new ArrayList<>();
+		this.nodes = new ArrayList<Node>();
 	}
 	
 	public Tree(Node root, ArrayList<Node> nodes){
