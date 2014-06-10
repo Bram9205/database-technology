@@ -27,6 +27,27 @@ public class SQLGenerator {
 		}
 		return result;
 	}
+
+    public static String generateQuery(Tree tree) {return recursiveGenerateQuery(tree.getRoot());}
+
+    private static String recursiveGenerateQuery(Node node){
+        String sql = "SELECT * FROM " + node.getName() + " WHERE ";
+        for(Node child: node.getChildren()){
+            sql += "Exists( " + recursiveGenerateQuery(child) + ") ";
+        }
+        for(Node child: node.getChildren()){
+            for(Attribute attr: node.getAttributes()){
+                for(Attribute chattr: child.getAttributes()){
+                    if(attr.getType().equals(chattr.getType())){
+                        sql += " AND " + node.getName() + "." + attr.getType() + " = " + child.getName() + "." + attr.getType();
+                    }
+
+                }
+            }
+        }
+        sql += ")";
+        return sql;
+    }
 	
 	public static String fillTables(Tree tree){
 		throw new UnsupportedOperationException("not yet implemented");
