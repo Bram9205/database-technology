@@ -11,7 +11,7 @@ import tree.Node;
 public class Main {	
 	
 	private static void test(){
-		Query query = QueryGenerator.generateCyclicQueryWidth2(3);
+		Query query = QueryGenerator.generateCyclicQueryWidth2(30);
 		Tree tree = Tree.createFromCyclicQueryWidth2(query);
 		System.out.println(SQLGenerator.generateTables(tree));
 
