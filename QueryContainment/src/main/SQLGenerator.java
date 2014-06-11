@@ -47,6 +47,7 @@ public class SQLGenerator {
             }
             sql += ")";
         }
+        if(!node.getChildren().isEmpty() && node.getChildren().get(0).getChildren().isEmpty()){sql += ")";}
         return sql;
     }
 	
