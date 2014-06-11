@@ -33,7 +33,7 @@ public class SQLGenerator {
     private static String recursiveGenerateQuery(Node node){
         String sql = "SELECT * FROM " + node.getName() + " WHERE ";
         for(Node child: node.getChildren()){
-            sql += "Exists( " + recursiveGenerateQuery(child) + ") ";
+            sql += "Exists( " + recursiveGenerateQuery(child);
         }
         for(Node child: node.getChildren()){
             for(Attribute attr: node.getAttributes()){
@@ -41,11 +41,10 @@ public class SQLGenerator {
                     if(attr.getType().equals(chattr.getType())){
                         sql += " AND " + node.getName() + "." + attr.getType() + " = " + child.getName() + "." + attr.getType();
                     }
-
                 }
             }
+            sql += ")";
         }
-        sql += ")";
         return sql;
     }
 	
