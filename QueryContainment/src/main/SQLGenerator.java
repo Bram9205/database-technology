@@ -40,7 +40,7 @@ public class SQLGenerator {
             for(Attribute attr: node.getAttributes()){
                 for(Attribute chattr: child.getAttributes()){
                     if(attr.getType().equals(chattr.getType())){
-                        if(!child.getChildren().isEmpty()){sql += " AND ";}
+                        if(!child.getChildren().isEmpty() && node.getChildren().indexOf(child) != 0){sql += " AND ";}    //dont write AND if the child has no children and this is the first child. We write AND if its not the fire child in this iterator.
                         sql += node.getName() + "." + attr.getType() + " = " + child.getName() + "." + attr.getType();
                     }
                 }
