@@ -51,7 +51,7 @@ public class Main {
         time = System.currentTimeMillis();
 
 
-        System.out.println(database.query(SQLGenerator.generateQuery(tree)));
+        database.query(SQLGenerator.generateQuery(tree));
         System.out.print(" | Executing query: " + (System.currentTimeMillis()-time));
         time = System.currentTimeMillis();
 
