@@ -25,7 +25,8 @@ public class Database {
         try {
             connection = DriverManager.getConnection(url, username, password);
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS querydb;");
+            stmt.executeUpdate("DROP DATABASE IF EXISTS querydb;");
+            stmt.executeUpdate("CREATE DATABASE IF EXISTS querydb;");
             stmt.executeUpdate("USE querydb;");
         }
         catch (Exception e){
