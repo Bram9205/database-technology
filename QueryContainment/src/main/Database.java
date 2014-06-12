@@ -44,8 +44,8 @@ public class Database {
         }
         catch (Exception e){
             System.out.println(e);
-            System.out.println("Problem executing statement: \n");
-            System.out.println(sql);
+            //System.out.println("Problem executing statement: \n");
+            //System.out.println(sql);
         }
     }
     public ResultSet queryForResultSet(String sql){
@@ -56,8 +56,8 @@ public class Database {
         }
         catch(Exception e){
             System.out.println(e);
-            System.out.println("Problem executing statement: \n");
-            System.out.println(sql);
+            //System.out.println("Problem executing statement: \n");
+            //System.out.println(sql);
             return null;
 
         }
@@ -71,8 +71,8 @@ public class Database {
         }
         catch(Exception e){
             System.out.println(e);
-            System.out.println("Problem executing statement: \n");
-            System.out.println(sql);
+            //System.out.println("Problem executing statement: \n");
+            //System.out.println(sql);
             return false;
         }
 
@@ -80,14 +80,16 @@ public class Database {
     public void cleanup(){
         try {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DROP DATABASE querydb;");
             stmt.executeUpdate("drop schema public cascade;");
+            stmt.executeUpdate("create schema public;;");
+            //stmt.executeUpdate("DROP DATABASE querydb;");
+
 
         }
         catch(Exception e){
             System.out.println(e);
-            System.out.println("Problem executing statement: \n");
-            System.out.println("Cleanup...");
+            //System.out.println("Problem executing statement: \n");
+            //System.out.println("Cleanup...");
         }
     }
 }
