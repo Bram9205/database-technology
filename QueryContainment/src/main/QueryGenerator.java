@@ -11,7 +11,8 @@ import java.util.Random;
  * @author Bram
  */
 public class QueryGenerator {
-	public static String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	public static String alphabet = "ABCDEFGHIJKLM";
+	public static String noiseAlphabet = "XYZWVUPQRSTNO";
 	/**
 	 * 
 	 * @param n Number of nodes in the cycle
@@ -19,13 +20,14 @@ public class QueryGenerator {
 	 * @return A cyclic query with n relations
 	 */
 	public static Query generateCyclicQueryWidth2(int n, int noise){
+		boolean noiseVariables = noise > 0;
 		Random RNG = new Random();
 		Query result = new Query();
-		Attribute previous = new Attribute(getAttributeName(0));
+		Attribute previous = new Attribute(getAttributeName(0,noiseVariables));
 		for(int i = 0; i < n; i++){
 			Relation relation = new Relation("s"+i);
 			relation.addAttribute(previous);
-			Attribute next = new Attribute(getAttributeName(i+1));
+			Attribute next = new Attribute(getAttributeName(i+1,noiseVariables));
 			relation.addAttribute(next);
 			result.addRelation(relation);
 			previous = next;
@@ -37,8 +39,8 @@ public class QueryGenerator {
 		result.setHeadToFirstRelation();
 		
 		for(int i = 0; i < noise; i++){
-			int x = RNG.nextInt(n);
-			Attribute noiseStart = new Attribute(getAttributeName(n+1+i));
+			int x = RNG.nextInt(n+1);
+			Attribute noiseStart = new Attribute(getAttributeName(n+1+i,true));
 			Attribute noiseEnd = result.getRelations().get(x).getAttributes().get(0);
 			Relation noiseRelation = new Relation("n"+i);
 			noiseRelation.addAttribute(noiseStart);
@@ -52,10 +54,10 @@ public class QueryGenerator {
 		return generateCyclicQueryWidth2(n,0);
 	}
 	
-	private static String getAttributeName(int x){
+	private static String getAttributeName(int x, boolean noise){
 		String result = "";
-		result += alphabet.charAt(x%26);
-		result += x/26;
+		result += (noise) ? noiseAlphabet.charAt(x%13) : alphabet.charAt(x%13);;
+		result += x/13;
 		return result;
 	}
 	

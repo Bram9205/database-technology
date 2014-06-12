@@ -51,4 +51,22 @@ public class Query {
 	public void setHeadToFirstRelation(){
 		this.head = relations.get(0);
 	}
+	
+	@Override
+	public String toString(){
+		String result = "";
+		result += "Q(";
+		for(Attribute a : head.getAttributes()){
+			result += a.getType() + ",";
+		}
+		result += ") :- ";
+		for(Relation r : relations){
+			result += r.getName() + "(";
+			for(Attribute a : r.getAttributes()){
+				result += a.getType() + ",";
+			}
+			result += "), ";
+		}
+		return result;
+	}
 }
