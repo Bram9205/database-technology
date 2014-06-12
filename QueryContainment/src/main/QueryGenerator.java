@@ -4,7 +4,7 @@ package main;
 import data.Attribute;
 import data.Query;
 import data.Relation;
-import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -15,9 +15,11 @@ public class QueryGenerator {
 	/**
 	 * 
 	 * @param n Number of nodes in the cycle
+	 * @param noise	Amount of added noise nodes
 	 * @return A cyclic query with n relations
 	 */
-	public static Query generateCyclicQueryWidth2(int n){
+	public static Query generateCyclicQueryWidth2(int n, int noise){
+		Random RNG = new Random();
 		Query result = new Query();
 		Attribute previous = new Attribute(getAttributeName(0));
 		for(int i = 0; i < n; i++){
@@ -33,7 +35,21 @@ public class QueryGenerator {
 		relation.addAttribute(result.getRelations().get(0).getAttributes().get(0));
 		result.addRelation(relation);
 		result.setHeadToFirstRelation();
+		
+		for(int i = 0; i < noise; i++){
+			int x = RNG.nextInt(n);
+			Attribute noiseStart = new Attribute(getAttributeName(n+1+i));
+			Attribute noiseEnd = result.getRelations().get(x).getAttributes().get(0);
+			Relation noiseRelation = new Relation("n"+i);
+			noiseRelation.addAttribute(noiseStart);
+			noiseRelation.addAttribute(noiseEnd);
+			result.addRelation(noiseRelation);
+		}
 		return result;
+	}
+	
+	public static Query generateCyclicQueryWidth2(int n){
+		return generateCyclicQueryWidth2(n,0);
 	}
 	
 	private static String getAttributeName(int x){

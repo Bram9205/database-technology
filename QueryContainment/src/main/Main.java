@@ -11,22 +11,16 @@ import tree.Node;
 public class Main {	
 	
 	private static void test(){
-		Query query = QueryGenerator.generateCyclicQueryWidth2(30);
+		Query query = QueryGenerator.generateCyclicQueryWidth2(6,1);
 		Tree tree = Tree.createFromCyclicQueryWidth2(query);
-		System.out.println(SQLGenerator.generateTables(tree));
-
-        System.out.println(SQLGenerator.generateQuery(tree));
-        System.out.println(tree);
-
-    }
+		System.out.println(tree.toString());
+	}
 	
-	public static void main(String[] args){
-		test();
+	private static void testDB(){
 		/*for(int i = 0; i<10; i++){
 			System.out.println(Relation.generateRandomName());
 		} */
         //From http://stackoverflow.com/questions/2839321/java-connectivity-with-mysql
-        /*
         try {
             //System.out.println("Loading driver...");
             Class.forName("com.mysql.jdbc.Driver");
@@ -90,6 +84,10 @@ public class Main {
             //System.out.println("Closing the connection.");
             if (connection != null) try { connection.close(); } catch (SQLException ignore) {}
         }
-	*/
+	}
+	
+	public static void main(String[] args){
+		test();
+//		testDB();
 	}
 }
