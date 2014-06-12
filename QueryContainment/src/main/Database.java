@@ -10,6 +10,10 @@ import java.sql.Statement;
  */
 public class Database {
     Connection connection;
+    String url = "jdbc:postgresql://localhost/querydb";
+    String urltmp = "jdbc:postgresql://localhost/temp";
+    String username = "postgres";
+    String password = "fletcher";
     public Database(){
        // try {
             //System.out.println("Loading driver...");
@@ -18,9 +22,7 @@ public class Database {
        // } catch (ClassNotFoundException e) {
        //     throw new RuntimeException("Cannot find the driver in the classpath!", e);
        // }
-        String url = "jdbc:postgresql://localhost/querydb";
-        String username = "postgres";
-        String password = "fletcher";
+
 
         try {
             connection = DriverManager.getConnection(url, username, password);
@@ -79,8 +81,9 @@ public class Database {
     }
     public void cleanup(){
         try {
+            connection = DriverManager.getConnection(url, username, password);
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("drop schema public cascade;");
+            //stmt.executeUpdate("drop schema public cascade;");
             //stmt.executeUpdate("create schema public;;");
             stmt.executeUpdate("DROP DATABASE querydb;");
             stmt.executeUpdate("CREATE DATABASE querydb;");
