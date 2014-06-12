@@ -81,7 +81,7 @@ public class Database {
     }
     public void cleanup(){
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(urltmp, username, password);
             Statement stmt = connection.createStatement();
             //stmt.executeUpdate("drop schema public cascade;");
             //stmt.executeUpdate("create schema public;;");
