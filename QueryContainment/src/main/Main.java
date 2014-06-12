@@ -6,14 +6,21 @@ import tree.Tree;
 import java.sql.*;
 import java.util.ArrayList;
 
-import tree.Node;
-
 public class Main {	
 	
 	private static void test(){
-		Query query = QueryGenerator.generateCyclicQueryWidth2(6,1);
+		Query query = QueryGenerator.generateCyclicQueryWidth2(4);
+		Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
+		System.out.println("Regular query: " + query.toString());
+		System.out.println("Noised query: " + nquery.toString());
 		Tree tree = Tree.createFromCyclicQueryWidth2(query);
-		System.out.println(tree.toString());
+		Tree ntree = Tree.createFromCyclicQueryWidth2(nquery);
+		System.out.println("Regular tree: " + tree.toString());
+		System.out.println("Noised tree: " + ntree.toString());
+		System.out.println("SQL:");
+		System.out.println(SQLGenerator.generateTables(tree));
+		System.out.println(SQLGenerator.fillTables(tree, ntree, query, nquery));
+		System.out.println(SQLGenerator.generateQuery(tree));
 	}
 	
 	private static void testDB(){

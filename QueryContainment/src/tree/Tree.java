@@ -2,6 +2,7 @@ package tree;
 
 import data.Attribute;
 import data.Query;
+import data.Relation;
 import java.util.ArrayList;
 
 /**
@@ -39,8 +40,20 @@ public class Tree {
 		return this.root.getSubtreeString();
 	}
 	
+	/**
+	 * Creates a tree out of the width 2 cyclic query. 
+	 * Works with noise, but noise relations should have a name starting with n (others s).
+	 * @param query query to create tree of
+	 * @return A tree which breaks the cycle in the query
+	 */
 	public static Tree createFromCyclicQueryWidth2(Query query){
 		Attribute firstAttribute = query.getRelations().get(0).getAttributes().get(0);
+		Relation lastRelation = null;
+		for(Relation r : query.getRelations()){
+			if(r.getName().toCharArray()[0] == 's'){
+				lastRelation = r;
+			}
+		}
 		Node root = new Node();
 		for(Attribute a : query.getRelations().get(0).getAttributes()){
 			root.addAttribute(a);
@@ -54,7 +67,7 @@ public class Tree {
 				node.addAttribute(a);
 			}
 			node.setName(query.getRelations().get(i).getName());
-			if(i != (query.getRelations().size()-1)){
+			if(query.getRelations().get(i) != lastRelation && query.getRelations().get(i).getName().toCharArray()[0] == 's'){
 				node.addAttribute(firstAttribute);
 			}
 			result.addNode(node);
