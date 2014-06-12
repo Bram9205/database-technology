@@ -45,7 +45,7 @@ public class Relation {
 	 */
 	public Relation(){
 		this.name = generateRandomName(defaultNameLength);
-		this.attributes = new ArrayList<Attribute>();
+		this.attributes = new ArrayList<>();
 	}
 	
 	public void addAttribute(Attribute attribute){
