@@ -26,7 +26,7 @@ public class Database {
             connection = DriverManager.getConnection(url, username, password);
             Statement stmt = connection.createStatement();
             //stmt.executeUpdate("DROP DATABASE IF EXISTS querydb;");
-            stmt.executeUpdate("CREATE DATABASE querydb;");
+            //stmt.executeUpdate("CREATE DATABASE querydb;");
             //stmt.executeUpdate("USE querydb;");
         }
         catch (Exception e){
@@ -83,6 +83,7 @@ public class Database {
             stmt.executeUpdate("drop schema public cascade;");
             //stmt.executeUpdate("create schema public;;");
             stmt.executeUpdate("DROP DATABASE querydb;");
+            stmt.executeUpdate("CREATE DATABASE querydb;");
 
 
         }
