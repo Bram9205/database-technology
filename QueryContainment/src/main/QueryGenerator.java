@@ -5,6 +5,8 @@ import data.Attribute;
 import data.Query;
 import data.Relation;
 import java.util.Random;
+import tree.Node;
+import tree.Tree;
 
 /**
  *
@@ -52,6 +54,36 @@ public class QueryGenerator {
 	
 	public static Query generateCyclicQueryWidth2(int n){
 		return generateCyclicQueryWidth2(n,0);
+	}
+	
+	public static Tree generateUncontainedTree(){
+		int n = 2;
+		Attribute one = new Attribute(getAttributeName(0,true));
+		Attribute two = new Attribute(getAttributeName(1,true));
+		Node node = new Node(null);
+		node.addAttribute(one);
+		node.addAttribute(two);
+		Tree result = new Tree(node);
+		
+		one = new Attribute(getAttributeName(1,true));
+		two = new Attribute(getAttributeName(2,true));
+		Attribute three = new Attribute(getAttributeName(0, true));
+		Node node2 = new Node(node);
+		node2.addAttribute(one);
+		node2.addAttribute(two);
+		node2.addAttribute(three);
+		result.addNode(node2);
+		
+		one = new Attribute(getAttributeName(2,true));
+		two = new Attribute(getAttributeName(0,true));
+		node = new Node(node2);
+		node.addAttribute(one);
+		node.addAttribute(two);
+		result.addNode(node);
+		
+		//Above is part for A -> B -> C -> A (last connection broken). TODO add second cycle A -> D -> E -> A with last connection broken (A,D;D,E,A;E,A)
+		
+		return result;
 	}
 	
 	private static String getAttributeName(int x, boolean noise){

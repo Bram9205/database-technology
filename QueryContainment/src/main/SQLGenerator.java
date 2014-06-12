@@ -138,4 +138,16 @@ public class SQLGenerator {
 		}
 		return result;
 	}
+	
+	public static String dropTables(Tree tree) {
+		return recursiveDropTables(tree.getRoot());
+	}
+
+	private static String recursiveDropTables(Node root) {
+		String result = "DROP TABLE " + root.getName() + ";";
+		for (Node n : root.getChildren()) {
+			result += recursiveDropTables(n);
+		}
+		return result;
+	}
 }
