@@ -29,6 +29,7 @@ public class Database {
         }
         catch (Exception e){
             System.out.println("Did not connect to database");
+            cleanup();
             System.exit(1);}
         }
 
@@ -43,6 +44,7 @@ public class Database {
         catch (Exception e){
             System.out.println("Problem executing statement: \n");
             System.out.println(sql);
+            cleanup();
         }
     }
     public ResultSet queryForResultSet(String sql){
@@ -54,7 +56,9 @@ public class Database {
         catch(Exception e){
             System.out.println("Problem executing statement: \n");
             System.out.println(sql);
+            cleanup();
             return null;
+
         }
 
     }
@@ -67,6 +71,7 @@ public class Database {
         catch(Exception e){
             System.out.println("Problem executing statement: \n");
             System.out.println(sql);
+            cleanup();
             return false;
         }
 
