@@ -36,6 +36,7 @@ public class Database {
         try {
             Statement stmt = connection.createStatement();
             for(String str: sql.split(";")){
+                System.out.println(str+";");
                 stmt.addBatch(str+";");}
             stmt.executeBatch();
         }
