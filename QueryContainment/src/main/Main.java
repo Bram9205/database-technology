@@ -36,7 +36,7 @@ public class Main {
         //System.out.println("SQL:");
         database.updateDB(SQLGenerator.generateTables(tree));
         database.updateDB(SQLGenerator.fillTables(tree, ntree, query, nquery));
-        database.query(SQLGenerator.generateQuery(tree));
+        System.out.println(database.query(SQLGenerator.generateQuery(tree)));
         database.cleanup();
     }
 
