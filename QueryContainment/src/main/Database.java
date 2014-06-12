@@ -80,7 +80,7 @@ public class Database {
     public void cleanup(){
         try {
             Statement stmt = connection.createStatement();
-            //stmt.executeUpdate("DROP DATABASE querydb;");
+            stmt.executeUpdate("DROP DATABASE querydb;");
             stmt.executeUpdate("drop schema public cascade;");
 
         }
