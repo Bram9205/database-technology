@@ -18,16 +18,16 @@ public class Database {
        // } catch (ClassNotFoundException e) {
        //     throw new RuntimeException("Cannot find the driver in the classpath!", e);
        // }
-        String url = "jdbc:postgresql://localhost/";
+        String url = "jdbc:postgresql://localhost/querydb";
         String username = "postgres";
         String password = "fletcher";
 
         try {
             connection = DriverManager.getConnection(url, username, password);
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DROP DATABASE IF EXISTS querydb;");
-            stmt.executeUpdate("CREATE DATABASE querydb;");
-            stmt.executeUpdate("USE querydb;");
+            //stmt.executeUpdate("DROP DATABASE IF EXISTS querydb;");
+            //stmt.executeUpdate("CREATE DATABASE querydb;");
+            //stmt.executeUpdate("USE querydb;");
         }
         catch (Exception e){
             System.out.println(e);
@@ -80,8 +80,8 @@ public class Database {
     public void cleanup(){
         try {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DROP DATABASE querydb;");
-            stmt.executeUpdate("RESET QUERY CACHE;");
+            //stmt.executeUpdate("DROP DATABASE querydb;");
+            stmt.executeUpdate("drop schema public cascade;");
 
         }
         catch(Exception e){
