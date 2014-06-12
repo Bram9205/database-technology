@@ -16,7 +16,9 @@ public class Main {
 		System.out.println(SQLGenerator.generateTables(tree));
 
         System.out.println(SQLGenerator.generateQuery(tree));
-	}
+        System.out.println(tree);
+
+    }
 	
 	public static void main(String[] args){
 		test();
