@@ -9,7 +9,7 @@ import java.sql.Statement;
  * Created by max on 6/12/14.
  */
 public class Database {
-    Connection connection = null;
+    Connection connection;
     public Database(){
         try {
             //System.out.println("Loading driver...");
@@ -21,11 +21,11 @@ public class Database {
         String url = "jdbc:mysql://localhost/";
         String username = "root";
         String password = "fletcher";
-        Connection connection;
+
         try {
             connection = DriverManager.getConnection(url, username, password);
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS querydb ;");
+            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS querydb;");
             stmt.executeUpdate("USE querydb;");
         }
         catch (Exception e){
@@ -56,7 +56,6 @@ public class Database {
         }
         catch(Exception e){
             System.out.println(e);
-
             System.out.println("Problem executing statement: \n");
             System.out.println(sql);
             return null;
