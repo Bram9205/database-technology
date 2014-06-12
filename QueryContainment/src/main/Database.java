@@ -19,7 +19,7 @@ public class Database {
        //     throw new RuntimeException("Cannot find the driver in the classpath!", e);
        // }
         String url = "jdbc:postgresql://localhost/";
-        String username = "root";
+        String username = "postgres";
         String password = "fletcher";
 
         try {
