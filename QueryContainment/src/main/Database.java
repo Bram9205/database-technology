@@ -80,6 +80,7 @@ public class Database {
         try {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("DROP DATABASE querydb;");
+            stmt.executeUpdate("RESET QUERY CACHE;");
 
         }
         catch(Exception e){
