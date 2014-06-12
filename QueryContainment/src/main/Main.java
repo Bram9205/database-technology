@@ -36,27 +36,27 @@ public class Main {
         //System.out.println("Noised query: " + nquery.toString());
         Tree tree = Tree.createFromCyclicQueryWidth2(query);
         Tree ntree = Tree.createFromCyclicQueryWidth2(nquery);
-        System.out.println("Time generating data: " + (System.currentTimeMillis()-time));
+        System.out.print("Time generating data: " + (System.currentTimeMillis()-time));
         time = System.currentTimeMillis();
         //System.out.println("Regular tree: " + tree.toString());
         //System.out.println("Noised tree: " + ntree.toString());
         //System.out.println("SQL:");
         database.updateDB(SQLGenerator.generateTables(tree));
-        System.out.println("Making Tables: " + (System.currentTimeMillis()-time));
+        System.out.print(" | Making Tables: " + (System.currentTimeMillis()-time));
         time = System.currentTimeMillis();
 
 
         database.updateDB(SQLGenerator.fillTables(tree, ntree, query, nquery));
-        System.out.println("Filling tables: " + (System.currentTimeMillis()-time));
+        System.out.print(" | Filling tables: " + (System.currentTimeMillis()-time));
         time = System.currentTimeMillis();
 
 
         System.out.println(database.query(SQLGenerator.generateQuery(tree)));
-        System.out.println("Executing query: " + (System.currentTimeMillis()-time));
+        System.out.print(" | Executing query: " + (System.currentTimeMillis()-time));
         time = System.currentTimeMillis();
 
         database.cleanup();
-        System.out.println("Cleaning up: " + (System.currentTimeMillis()-time));
+        System.out.print(" | Cleaning up: " + (System.currentTimeMillis()-time) + "\n");
         time = System.currentTimeMillis();
     }
 
