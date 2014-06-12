@@ -44,6 +44,7 @@ public class Database {
             stmt.executeBatch();
         }
         catch (Exception e){
+            System.out.println(e);
             System.out.println("Problem executing statement: \n");
             System.out.println(sql);
             cleanup();
@@ -56,6 +57,8 @@ public class Database {
             return rs;
         }
         catch(Exception e){
+            System.out.println(e);
+
             System.out.println("Problem executing statement: \n");
             System.out.println(sql);
             cleanup();
@@ -71,6 +74,7 @@ public class Database {
             return rs.next() == true;
         }
         catch(Exception e){
+            System.out.println(e);
             System.out.println("Problem executing statement: \n");
             System.out.println(sql);
             cleanup();
@@ -85,6 +89,7 @@ public class Database {
 
         }
         catch(Exception e){
+            System.out.println(e);
             System.out.println("Problem executing statement: \n");
             System.out.println("Cleanup...");
         }
