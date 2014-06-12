@@ -81,8 +81,8 @@ public class Database {
         try {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("drop schema public cascade;");
-            stmt.executeUpdate("create schema public;;");
-            //stmt.executeUpdate("DROP DATABASE querydb;");
+            //stmt.executeUpdate("create schema public;;");
+            stmt.executeUpdate("DROP DATABASE querydb;");
 
 
         }
