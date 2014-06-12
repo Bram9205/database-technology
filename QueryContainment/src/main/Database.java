@@ -13,12 +13,12 @@ public class Database {
     public Database(){
         try {
             //System.out.println("Loading driver...");
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.postgresql.jdbc.Driver");
             //System.out.println("Driver loaded!");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Cannot find the driver in the classpath!", e);
         }
-        String url = "jdbc:mysql://localhost/";
+        String url = "jdbc:postgresql://localhost/";
         String username = "root";
         String password = "fletcher";
 
