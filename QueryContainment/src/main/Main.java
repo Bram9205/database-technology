@@ -52,7 +52,7 @@ public class Main {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Cannot find the driver in the classpath!", e);
         }
-        String url = "jdbc:mysql://localhost:3306/querydb";
+        String url = "jdbc:mysql://localhost:/querydb";
         String username = "root";
         String password = "fletcher";
         Connection connection = null;

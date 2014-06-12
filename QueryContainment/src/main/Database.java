@@ -18,9 +18,10 @@ public class Database {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Cannot find the driver in the classpath!", e);
         }
-        String url = "jdbc:mysql://localhost:3306";
+        String url = "jdbc:mysql://localhost/";
         String username = "root";
-        String password = "fletcher";Connection connection = null;
+        String password = "fletcher";
+        Connection connection;
         try {
             connection = DriverManager.getConnection(url, username, password);
             Statement stmt = connection.createStatement();
@@ -28,6 +29,7 @@ public class Database {
             stmt.executeUpdate("USE querydb;");
         }
         catch (Exception e){
+            System.out.println(e);
             System.out.println("Did not connect to database");
             cleanup();
             System.exit(1);}
