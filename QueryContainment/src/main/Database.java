@@ -35,7 +35,8 @@ public class Database {
     public void updateDB(String sql){
         try {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate(sql);
+            stmt.addBatch(sql);
+            stmt.executeBatch();
         }
         catch (Exception e){
             System.out.println("Problem executing statement: \n");
