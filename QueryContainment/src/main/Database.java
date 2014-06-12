@@ -35,7 +35,8 @@ public class Database {
     public void updateDB(String sql){
         try {
             Statement stmt = connection.createStatement();
-            stmt.addBatch(sql);
+            for(String str: sql.split(";")){
+                stmt.addBatch(str+";");}
             stmt.executeBatch();
         }
         catch (Exception e){
