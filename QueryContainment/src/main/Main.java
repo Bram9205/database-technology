@@ -22,7 +22,24 @@ public class Main {
 		System.out.println(SQLGenerator.fillTables(tree, ntree, query, nquery));
 		System.out.println(SQLGenerator.generateQuery(tree));
 	}
-	
+
+    public static void executeOnDB(){
+        Database database = new Database();
+        Query query = QueryGenerator.generateCyclicQueryWidth2(4);
+        Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
+        //System.out.println("Regular query: " + query.toString());
+        //System.out.println("Noised query: " + nquery.toString());
+        Tree tree = Tree.createFromCyclicQueryWidth2(query);
+        Tree ntree = Tree.createFromCyclicQueryWidth2(nquery);
+        //System.out.println("Regular tree: " + tree.toString());
+        //System.out.println("Noised tree: " + ntree.toString());
+        //System.out.println("SQL:");
+        database.updateDB(SQLGenerator.generateTables(tree));
+        database.updateDB(SQLGenerator.fillTables(tree, ntree, query, nquery));
+        database.query(SQLGenerator.generateQuery(tree));
+        database.cleanup();
+    }
+
 	private static void testDB(){
 		/*for(int i = 0; i<10; i++){
 			System.out.println(Relation.generateRandomName());
