@@ -50,8 +50,5 @@ public class SQLGenerator {
         if(!node.getChildren().isEmpty() && node.getChildren().get(0).getChildren().isEmpty()){sql += ")";}
         return sql;
     }
-	
-	public static String fillTables(Tree tree){
-		throw new UnsupportedOperationException("not yet implemented");
-	}
+
 }
