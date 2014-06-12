@@ -23,10 +23,14 @@ public class Main {
 		System.out.println(SQLGenerator.generateQuery(tree));
 	}
 
-    public static void executeOnDB(){
+    public static void executeOnDB(String[] args){
         Database database = new Database();
-        Query query = QueryGenerator.generateCyclicQueryWidth2(4);
-        Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
+        //Query query = QueryGenerator.generateCyclicQueryWidth2(4);
+        //Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
+        int inputA = Integer.parseInt(args[0]);
+        int inputB = Integer.parseInt(args[1]);
+        Query query = QueryGenerator.generateCyclicQueryWidth2(inputA);
+        Query nquery = QueryGenerator.generateCyclicQueryWidth2(inputA,inputB);
         //System.out.println("Regular query: " + query.toString());
         //System.out.println("Noised query: " + nquery.toString());
         Tree tree = Tree.createFromCyclicQueryWidth2(query);
@@ -112,7 +116,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		//test();
-        executeOnDB();
+        executeOnDB(args);
 //		testDB();
 	}
 }
