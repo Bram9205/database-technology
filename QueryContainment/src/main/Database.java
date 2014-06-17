@@ -93,12 +93,13 @@ public class Database {
         for(Node child: node.getChildren()){
             count += recursiveSize(child);
         }
-        System.out.println(node.getName());
         ResultSet rs = this.queryForResultSet("SELECT COUNT(*) AS count FROM " + node.getName() + ";");
         try {
-            while(rs.next()){System.out.println(rs.getInt("count"));}
+            if(rs.next()){
+                count += rs.getInt("count");
+            }
         }catch(Exception e){System.out.println(e);}
-        return 0;
+        return count;
 
     }
     public void cleanup(){
