@@ -95,7 +95,7 @@ public class Database {
         }
         ResultSet rs = this.queryForResultSet("SELECT COUNT(*) FROM " + node.getName());
         try {
-            while(rs.next()){System.out.println(rs.last());}
+            System.out.println(rs.last());
         }catch(Exception e){}
         return 0;
 
