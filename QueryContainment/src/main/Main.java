@@ -56,7 +56,7 @@ public class Main {
         time = System.currentTimeMillis();
 
 
-        System.out.println("Database size(records total): " + database.totalSize(tree));
+        System.out.println(" | Database size(records total): " + database.totalSize(tree));
         //database.totalSize(tree);
 
         database.cleanup();
