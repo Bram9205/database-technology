@@ -1,5 +1,9 @@
 package main;
 
+import tree.Node;
+import tree.Tree;
+
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -77,6 +81,23 @@ public class Database {
             //System.out.println(sql);
             return false;
         }
+
+    }
+    public int totalSize(Tree tree){
+        return recursiveSize(tree.getRoot());
+
+
+    }
+    private int recursiveSize(Node node){
+        int count = 0;
+        for(Node child: node.getChildren()){
+            count += recursiveSize(child);
+        }
+        ResultSet rs = this.queryForResultSet("SELECT COUNT(*) FROM " + node.getName());
+        try {
+            System.out.println(rs.first());
+        }catch(Exception e){}
+        return 0;
 
     }
     public void cleanup(){
