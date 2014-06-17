@@ -93,9 +93,9 @@ public class Database {
         for(Node child: node.getChildren()){
             count += recursiveSize(child);
         }
-        ResultSet rs = this.queryForResultSet("SELECT COUNT(*) FROM " + node.getName());
+        ResultSet rs = this.queryForResultSet("SELECT COUNT(*) AS count FROM " + node.getName() + ";");
         try {
-            System.out.println(rs.first());
+            System.out.println(rs.getInt("count"));
         }catch(Exception e){}
         return 0;
 
