@@ -5,21 +5,29 @@ import data.Query;
 import tree.Tree;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {	
 	
 	private static void test(){
+//		QueryGenerator.generateUncontainedTree().print();
+		
+		
 		Query query = QueryGenerator.generateCyclicQueryWidth2(4);
-		Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
+//		Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
 		System.out.println("Regular query: " + query.toString());
-		System.out.println("Noised query: " + nquery.toString());
+//		System.out.println("Noised query: " + nquery.toString());
 		Tree tree = Tree.createFromCyclicQueryWidth2(query);
-		Tree ntree = Tree.createFromCyclicQueryWidth2(nquery);
+		Tree ntree = QueryGenerator.generateUncontainedTree();
 		System.out.println("Regular tree: " + tree.toString());
 		System.out.println("Noised tree: " + ntree.toString());
 		System.out.println("SQL:");
 		System.out.println(SQLGenerator.generateTables(tree));
-		System.out.println(SQLGenerator.fillTables(tree, ntree, query, nquery));
+		Map head = new HashMap();
+		head.put(query.getHead().getAttributes().get(0), ntree.getRoot().getAttributes().get(0));
+		head.put(query.getHead().getAttributes().get(1), ntree.getRoot().getAttributes().get(1));
+		System.out.println(SQLGenerator.recursiveFillTables(tree.getRoot(), ntree.getRoot(), head));
 		System.out.println(SQLGenerator.generateQuery(tree));
 	}
 
@@ -131,8 +139,8 @@ public class Main {
 	}
 	
 	public static void main(String[] args){
-		//test();
-        executeOnDB(args);
+		test();
+//        executeOnDB(args);
 //		testDB();
 	}
 }
