@@ -53,10 +53,6 @@ public class QueryGenerator {
 		return result;
 	}
 
-	public static Query generateCyclicQueryWidth2(int n) {
-		return generateCyclicQueryWidth2(n, 0);
-	}
-
 	/*
 	 * Generates a tree with 2 (broken) loops (non-nested)
 	 */
@@ -112,6 +108,63 @@ public class QueryGenerator {
 
 		return result;
 	}
+	
+	public static Query generateCyclicQueryWidth3(int n, int noise){
+		boolean noiseVariables = noise > 0;
+		Random RNG = new Random();
+		Query result = new Query();
+		Attribute previous = new Attribute(getAttributeName(0,noiseVariables));
+		for(int i = 0; i < n/2-1; i++){
+			Relation relation = new Relation("s"+i);
+			relation.addAttribute(previous);
+			Attribute next = new Attribute(getAttributeName(i+1,noiseVariables));
+			relation.addAttribute(next);
+			result.addRelation(relation);
+			previous = next;
+		}
+		Relation relation = new Relation("s"+(n/2-1));
+		relation.addAttribute(previous);
+		relation.addAttribute(result.getRelations().get(0).getAttributes().get(0));
+		result.addRelation(relation);
+                
+                for(int i = n/2; i < n; i++){
+			relation = new Relation("s"+(i));
+			relation.addAttribute(previous);
+			Attribute next = new Attribute(getAttributeName(i,noiseVariables));
+			relation.addAttribute(next);
+			result.addRelation(relation);
+			previous = next;
+		}
+		relation = new Relation("s"+(n));
+		relation.addAttribute(previous);
+                relation.addAttribute(result.getRelations().get(((n/2+1))).getAttributes().get(0));
+		result.addRelation(relation);
+                
+		result.setHeadToFirstRelation();
+		
+                
+                /// NOISE GENERATION NOT YET IMPLEMENTED
+//		for(int i = 0; i < noise; i++){
+//			int x = RNG.nextInt(n+1);
+//			Attribute noiseStart = new Attribute(getAttributeName(n+1+i,true));
+//			Attribute noiseEnd = result.getRelations().get(x).getAttributes().get(0);
+//			Relation noiseRelation = new Relation("n"+i);
+//			noiseRelation.addAttribute(noiseStart);
+//			noiseRelation.addAttribute(noiseEnd);
+//			result.addRelation(noiseRelation);
+//		}
+		return result;
+	}
+	
+	public static Query generateCyclicQueryWidth2(int n){
+		return generateCyclicQueryWidth2(n,0);
+	}
+	
+	public static Query generateCyclicQueryWidth3(int n){
+		return generateCyclicQueryWidth3(n,0);
+	}
+	
+		
 
 	private static String getAttributeName(int x, boolean noise) {
 		String result = "";
