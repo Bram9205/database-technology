@@ -11,24 +11,22 @@ import java.util.Map;
 public class Main {	
 	
 	private static void test(){
-//		QueryGenerator.generateUncontainedTree().print();
-		
-		
-		Query query = QueryGenerator.generateCyclicQueryWidth2(4);
-//		Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
-		System.out.println("Regular query: " + query.toString());
-//		System.out.println("Noised query: " + nquery.toString());
-		Tree tree = Tree.createFromCyclicQueryWidth2(query);
-		Tree ntree = QueryGenerator.generateUncontainedTree();
-		System.out.println("Regular tree: " + tree.toString());
-		System.out.println("Noised tree: " + ntree.toString());
-		System.out.println("SQL:");
-		System.out.println(SQLGenerator.generateTables(tree));
-		Map head = new HashMap();
-		head.put(query.getHead().getAttributes().get(0), ntree.getRoot().getAttributes().get(0));
-		head.put(query.getHead().getAttributes().get(1), ntree.getRoot().getAttributes().get(1));
-		System.out.println(SQLGenerator.recursiveFillTables(tree.getRoot(), ntree.getRoot(), head));
-		System.out.println(SQLGenerator.generateQuery(tree));
+		Query query = QueryGenerator.generateCyclicQueryWidth2(2);
+		Query q2 = QueryGenerator.generateCyclicQueryWidth2(2, 1);
+		Tree t = Tree.createFromCyclicQueryWidth2(query);
+		Tree t2 = Tree.createFromCyclicQueryWidth2(q2);
+		System.out.println(SQLGenerator.generateTables(t));
+		System.out.println(SQLGenerator.fillTables(t, t2, query, q2));
+		System.out.println(SQLGenerator.generateQuery(t));
+//		Tree cycle = Tree.createFromCyclicQueryWidth2(query);
+//		cycle.print();
+//		Tree uncontained = QueryGenerator.generateUncontainedTree(2, 2);
+//		System.out.println(SQLGenerator.generateTables(uncontained));
+//		Map head = new HashMap();
+//		head.put(query.getHead().getAttributes().get(0), uncontained.getRoot().getAttributes().get(0));
+//		head.put(query.getHead().getAttributes().get(1), uncontained.getRoot().getAttributes().get(1));
+//		System.out.println(SQLGenerator.recursiveFillTables(cycle.getRoot(),uncontained.getRoot(),head));
+//		Tree.createFromCyclicQueryWidth2(QueryGenerator.generateCyclicQueryWidth2(3)).print();
 	}
 
     public static void executeOnDB(String[] args){
