@@ -14,12 +14,13 @@ public class Main {
 //		QueryGenerator.generateUncontainedTree().print();
 		
 		
-		Query query = QueryGenerator.generateCyclicQueryWidth2(4);
-//		Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
+		Query query = QueryGenerator.generateCyclicQueryWidthN(3,9,0);
+		Query nquery = QueryGenerator.generateCyclicQueryWidthN(3,9,1);
 		System.out.println("Regular query: " + query.toString());
-//		System.out.println("Noised query: " + nquery.toString());
-		Tree tree = Tree.createFromCyclicQueryWidth2(query);
-		Tree ntree = QueryGenerator.generateUncontainedTree();
+		System.out.println("Noised query: " + nquery.toString());
+		Tree tree = Tree.createFromCyclicQueryWidthN(query);
+		Tree ntree = Tree.createFromCyclicQueryWidthN(nquery);
+        //Tree ntree = QueryGenerator.generateUncontainedTree(0,0);
 		System.out.println("Regular tree: " + tree.toString());
 		System.out.println("Noised tree: " + ntree.toString());
 		System.out.println("SQL:");
@@ -38,7 +39,7 @@ public class Main {
         long time = System.currentTimeMillis();
         int inputA = Integer.parseInt(args[0]);
         int inputB = Integer.parseInt(args[1]);
-        Query query = QueryGenerator.generateCyclicQueryWidth2(inputA);
+        Query query = QueryGenerator.generateCyclicQueryWidth2(inputA,0);
         Query nquery = QueryGenerator.generateCyclicQueryWidth2(inputA,inputB);
         //System.out.println("Regular query: " + query.toString());
         //System.out.println("Noised query: " + nquery.toString());

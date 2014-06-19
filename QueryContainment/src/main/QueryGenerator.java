@@ -109,11 +109,11 @@ public class QueryGenerator {
 		return result;
 	}
 	
-	public static Query generateCyclicQueryWidth3(int n, int noise){
+	/*public static Query generateCyclicQueryWidth3(int n, int noise){
     public static Query generateCyclicQueryWidth2(int n){
         return generateCyclicQueryWidth2(n,0);
     }
-
+      */
 
     /**
      *
@@ -259,6 +259,7 @@ public class QueryGenerator {
 		return result;
 	}
 
+	/*
 	public static void main(String[] args) {
 		Query result = generateCyclicQueryWidth2(3);
 		System.out.print("Q" + result.getHead().toString() + ":-");
@@ -266,4 +267,5 @@ public class QueryGenerator {
 			System.out.print(result.getRelations().get(i).toString() + ", ");
 		}
 	}
+	*/
 }
