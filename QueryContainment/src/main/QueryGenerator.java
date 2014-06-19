@@ -54,15 +54,52 @@ public class QueryGenerator {
 	}
 
 	/*
-	 * Generates a tree with 2 (broken) loops (non-nested)
+	 * Generates a tree with 2 (broken) loops (non-nested). Size loop 1 = n1, size loop 2 = n2
 	 */
 	public static Tree generateUncontainedTree(int n1, int n2) {
+		Attribute A = new Attribute(getAttributeName(0, false));
+		Attribute secondCycleFirst = new Attribute(getAttributeName(n1+1, false));
+		Attribute next = new Attribute(getAttributeName(1, false));
+		Node parent = new Node();
+		parent.addAttribute(A);
+		parent.addAttribute(next);
+		parent.addAttribute(secondCycleFirst);
+		parent.setName("s0");
+		Tree result = new Tree(parent);
+		Node newNode;
 		for (int i = 0; i < n1; i++) {
-			//TODO!
+			newNode = new Node(parent);
+			newNode.addAttribute(next);
+			if (i == n1 - 1){
+				next = A;
+				newNode.addAttribute(next);
+			} else {
+				next = new Attribute(getAttributeName(i+2, false));
+				newNode.addAttribute(next);
+				newNode.addAttribute(A);
+			}
+			newNode.setName("s"+(i+1));
+			result.addNode(newNode);
+			parent = newNode;
 		}
-		Attribute A = new Attribute(getAttributeName(0, true));
-		Attribute B = new Attribute(getAttributeName(1, true));
-		Attribute C = new Attribute(getAttributeName(2, true));
+		parent = result.getRoot();
+		next = new Attribute(getAttributeName(n1+1, false)); // s(A,B),s(B,C),s(C,A),s(A,D),s(D,E),s(E,A)
+		for(int i = n1; i < n2+n1; i++){
+			newNode = new Node(parent);
+			newNode.addAttribute(next);
+			if (i == n2 + n1 - 1){
+				next = A;
+				newNode.addAttribute(next);
+			} else {
+				next = new Attribute(getAttributeName(i+2, false));
+				newNode.addAttribute(next);
+				newNode.addAttribute(A);
+			}
+			newNode.setName("s"+(i+1));
+			result.addNode(newNode);
+			parent = newNode;
+		}
+		/*Attribute C = new Attribute(getAttributeName(2, true));
 		Attribute D = new Attribute(getAttributeName(3, true));
 		Attribute E = new Attribute(getAttributeName(4, true));
 
@@ -104,7 +141,7 @@ public class QueryGenerator {
 		node6.addAttribute(E);
 		node6.addAttribute(A);
 		node6.setName("n6");
-		result.addNode(node6);
+		result.addNode(node6);*/
 
 		return result;
 	}

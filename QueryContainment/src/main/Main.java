@@ -11,9 +11,6 @@ import java.util.Map;
 public class Main {	
 	
 	private static void test(){
-//		QueryGenerator.generateUncontainedTree().print();
-		
-		
 		Query query = QueryGenerator.generateCyclicQueryWidthN(3,9,0);
 		Query nquery = QueryGenerator.generateCyclicQueryWidthN(3,9,1);
 		System.out.println("Regular query: " + query.toString());
