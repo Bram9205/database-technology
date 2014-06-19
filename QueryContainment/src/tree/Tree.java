@@ -42,10 +42,9 @@ public class Tree {
 		return this.root.getSubtreeString();
 	}
 	
-	/*public void print(){
-		this.root.print();
+	public void print(){
+		this.root.print("", true);
 	}
-	  */
 	/**
 	 * Creates a tree out of the width 2 cyclic query. 
 	 * Works with noise, but noise relations should have a name starting with n (others s).

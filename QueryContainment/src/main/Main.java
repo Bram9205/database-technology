@@ -18,8 +18,10 @@ public class Main {
 		Tree tree = Tree.createFromCyclicQueryWidthN(query);
 		Tree ntree = Tree.createFromCyclicQueryWidthN(nquery);
         //Tree ntree = QueryGenerator.generateUncontainedTree(0,0);
-		System.out.println("Regular tree: " + tree.toString());
-		System.out.println("Noised tree: " + ntree.toString());
+		System.out.println("Regular tree: ");
+		tree.print();
+		System.out.println("Noised tree: ");
+		ntree.print();
 		System.out.println("SQL:");
 		System.out.println(SQLGenerator.generateTables(tree));
 		Map head = new HashMap();
