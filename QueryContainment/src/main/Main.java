@@ -9,18 +9,21 @@ import java.util.ArrayList;
 public class Main {	
 	
 	private static void test(){
-		Query query = QueryGenerator.generateCyclicQueryWidth2(4);
-		Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
+		Query query = QueryGenerator.generateCyclicQueryWidthN(3,6,0);
+		Query nquery = QueryGenerator.generateCyclicQueryWidthN(3,6,1);
+        //Query query = QueryGenerator.generateCyclicQueryWidth2(6);
+        //Query nquery = QueryGenerator.generateCyclicQueryWidth2(6,1);
 		System.out.println("Regular query: " + query.toString());
 		System.out.println("Noised query: " + nquery.toString());
-		Tree tree = Tree.createFromCyclicQueryWidth2(query);
-		Tree ntree = Tree.createFromCyclicQueryWidth2(nquery);
-		System.out.println("Regular tree: " + tree.toString());
+		Tree tree = Tree.createFromCyclicQueryWidthN(query);
+        System.out.println("Regular tree: " + tree.toString());
+        Tree ntree = Tree.createFromCyclicQueryWidthN(nquery);
 		System.out.println("Noised tree: " + ntree.toString());
 		System.out.println("SQL:");
 		System.out.println(SQLGenerator.generateTables(tree));
 		System.out.println(SQLGenerator.fillTables(tree, ntree, query, nquery));
-		System.out.println(SQLGenerator.generateQuery(tree));
+		//System.out.println(SQLGenerator.generateQuery(tree));
+
 	}
 
     public static void executeOnDB(String[] args){
@@ -137,8 +140,8 @@ public class Main {
 	}
 	
 	public static void main(String[] args){
-		//test();
-        executeOnDB(args);
+		test();
+        //executeOnDB(args);
 //		testDB();
 	}
 }

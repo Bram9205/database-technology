@@ -5,6 +5,8 @@
 package tree;
 
 import data.Attribute;
+import data.Relation;
+
 import java.util.ArrayList;
 
 /**
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Node {
 	private ArrayList<Attribute> attributes;
-	private Node parent;
+	public Node parent;
 	private ArrayList<Node> children;
 	private String name;
 	
@@ -39,6 +41,11 @@ public class Node {
 		this.children = new ArrayList<Node>();
 		this.attributes = new ArrayList<Attribute>();
 	}
+    public Node (Relation relation){
+         this.name = relation.getName();
+        this.attributes = relation.getAttributes();
+        this.children = new ArrayList<>();
+    }
 	
 	/**
 	 * Create the root node
@@ -80,8 +87,13 @@ public class Node {
 	public ArrayList<Attribute> getAttributes(){
 		return attributes;
 	}
-	
-	public String getSubtreeString(){
+
+    public Attribute getAttribute(int i){
+        return attributes.get(i);
+    }
+
+
+    public String getSubtreeString(){
 		String result = this.name+"(";
 		for(int i = 0; i< this.attributes.size(); i++){
 			result += this.attributes.get(i).getType() + ",";
