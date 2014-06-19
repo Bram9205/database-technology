@@ -72,7 +72,7 @@ public class SQLGenerator {
 		return recursiveFillTables(regularTree.getRoot(), noisedTree.getRoot(), head);
 	}
 
-	private static String recursiveFillTables(Node node, Node noiseRoot, Map head) {
+	public static String recursiveFillTables(Node node, Node noiseRoot, Map head) {
 		//Generate the "INSERT INTO {tablename}(a, b, c) VALUES " part
 		String result = "INSERT INTO " + node.getName() + "(";
 		String separator = "";

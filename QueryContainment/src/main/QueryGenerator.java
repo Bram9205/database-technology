@@ -1,6 +1,5 @@
 package main;
 
-
 import data.Attribute;
 import data.Query;
 import data.Relation;
@@ -13,44 +12,104 @@ import tree.Tree;
  * @author Bram
  */
 public class QueryGenerator {
+
 	public static String alphabet = "ABCDEFGHIJKLM";
 	public static String noiseAlphabet = "XYZWVUPQRSTNO";
+
 	/**
-	 * 
+	 *
 	 * @param n Number of nodes in the cycle
 	 * @param noise	Amount of added noise nodes
 	 * @return A cyclic query with n relations
 	 */
-	public static Query generateCyclicQueryWidth2(int n, int noise){
+	public static Query generateCyclicQueryWidth2(int n, int noise) {
 		boolean noiseVariables = noise > 0;
 		Random RNG = new Random();
 		Query result = new Query();
-		Attribute previous = new Attribute(getAttributeName(0,noiseVariables));
-		for(int i = 0; i < n; i++){
-			Relation relation = new Relation("s"+i);
+		Attribute previous = new Attribute(getAttributeName(0, noiseVariables));
+		for (int i = 0; i < n; i++) {
+			Relation relation = new Relation("s" + i);
 			relation.addAttribute(previous);
-			Attribute next = new Attribute(getAttributeName(i+1,noiseVariables));
+			Attribute next = new Attribute(getAttributeName(i + 1, noiseVariables));
 			relation.addAttribute(next);
 			result.addRelation(relation);
 			previous = next;
 		}
-		Relation relation = new Relation("s"+n);
+		Relation relation = new Relation("s" + n);
 		relation.addAttribute(previous);
 		relation.addAttribute(result.getRelations().get(0).getAttributes().get(0));
 		result.addRelation(relation);
 		result.setHeadToFirstRelation();
-		
-		for(int i = 0; i < noise; i++){
-			int x = RNG.nextInt(n+1);
-			Attribute noiseStart = new Attribute(getAttributeName(n+1+i,true));
+
+		for (int i = 0; i < noise; i++) {
+			int x = RNG.nextInt(n + 1);
+			Attribute noiseStart = new Attribute(getAttributeName(n + 1 + i, true));
 			Attribute noiseEnd = result.getRelations().get(x).getAttributes().get(0);
-			Relation noiseRelation = new Relation("n"+i);
+			Relation noiseRelation = new Relation("n" + i);
 			noiseRelation.addAttribute(noiseStart);
 			noiseRelation.addAttribute(noiseEnd);
 			result.addRelation(noiseRelation);
 		}
 		return result;
 	}
+
+	/*
+	 * Generates a tree with 2 (broken) loops (non-nested)
+	 */
+	public static Tree generateUncontainedTree(int n1, int n2) {
+		for (int i = 0; i < n1; i++) {
+			//TODO!
+		}
+		Attribute A = new Attribute(getAttributeName(0, true));
+		Attribute B = new Attribute(getAttributeName(1, true));
+		Attribute C = new Attribute(getAttributeName(2, true));
+		Attribute D = new Attribute(getAttributeName(3, true));
+		Attribute E = new Attribute(getAttributeName(4, true));
+
+		Node node1 = new Node();
+		node1.addAttribute(A);
+		node1.addAttribute(B);
+		node1.setName("n1");
+		Tree result = new Tree(node1);
+
+		Node node2 = new Node(node1);
+		node2.addAttribute(B);
+		node2.addAttribute(C);
+		node2.addAttribute(A);
+		node2.setName("n2");
+		result.addNode(node2);
+
+		Node node3 = new Node(node2);
+		node3.addAttribute(C);
+		node3.addAttribute(A);
+		node3.setName("n3");
+		result.addNode(node3);
+
+		//Above is part for A -> B -> C -> A (last connection broken). TODO add second cycle A -> D -> E -> A with last connection broken (A,D;D,E,A;E,A)
+
+		Node node4 = new Node(node1);
+		node4.addAttribute(A);
+		node4.addAttribute(D);
+		node4.setName("n4");
+		result.addNode(node4);
+
+		Node node5 = new Node(node4);
+		node5.addAttribute(D);
+		node5.addAttribute(E);
+		node5.addAttribute(A);
+		node5.setName("n5");
+		result.addNode(node5);
+
+		Node node6 = new Node(node5);
+		node6.addAttribute(E);
+		node6.addAttribute(A);
+		node6.setName("n6");
+		result.addNode(node6);
+
+		return result;
+	}
+	
+	public static Query generateCyclicQueryWidth3(int n, int noise){
     public static Query generateCyclicQueryWidth2(int n){
         return generateCyclicQueryWidth2(n,0);
     }
@@ -159,6 +218,10 @@ public class QueryGenerator {
 	public static Query generateCyclicQueryWidth3(int n){
 		return generateCyclicQueryWidth3(n,0);
 	}
+	
+		
+
+	private static String getAttributeName(int x, boolean noise) {
 	public static Tree generateUncontainedTree(){
 		int n = 2;
 		Attribute one = new Attribute(getAttributeName(0,true));
@@ -191,17 +254,16 @@ public class QueryGenerator {
 	*/
 	private static String getAttributeName(int x, boolean noise){
 		String result = "";
-		result += (noise) ? noiseAlphabet.charAt(x%13) : alphabet.charAt(x%13);;
-		result += x/13;
+		result += (noise) ? noiseAlphabet.charAt(x % 13) : alphabet.charAt(x % 13);;
+		result += x / 13;
 		return result;
 	}
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		Query result = generateCyclicQueryWidth2(3);
-		System.out.print("Q"+result.getHead().toString()+":-");
-		for(int i = 0; i < result.getRelations().size(); i++){
+		System.out.print("Q" + result.getHead().toString() + ":-");
+		for (int i = 0; i < result.getRelations().size(); i++) {
 			System.out.print(result.getRelations().get(i).toString() + ", ");
 		}
 	}
-
 }

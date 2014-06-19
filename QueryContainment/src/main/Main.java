@@ -5,25 +5,30 @@ import data.Query;
 import tree.Tree;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {	
 	
 	private static void test(){
-		Query query = QueryGenerator.generateCyclicQueryWidthN(3,6,0);
-		Query nquery = QueryGenerator.generateCyclicQueryWidthN(3,6,1);
-        //Query query = QueryGenerator.generateCyclicQueryWidth2(6);
-        //Query nquery = QueryGenerator.generateCyclicQueryWidth2(6,1);
+//		QueryGenerator.generateUncontainedTree().print();
+		
+		
+		Query query = QueryGenerator.generateCyclicQueryWidth2(4);
+//		Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
 		System.out.println("Regular query: " + query.toString());
-		System.out.println("Noised query: " + nquery.toString());
-		Tree tree = Tree.createFromCyclicQueryWidthN(query);
-        System.out.println("Regular tree: " + tree.toString());
-        Tree ntree = Tree.createFromCyclicQueryWidthN(nquery);
+//		System.out.println("Noised query: " + nquery.toString());
+		Tree tree = Tree.createFromCyclicQueryWidth2(query);
+		Tree ntree = QueryGenerator.generateUncontainedTree();
+		System.out.println("Regular tree: " + tree.toString());
 		System.out.println("Noised tree: " + ntree.toString());
 		System.out.println("SQL:");
 		System.out.println(SQLGenerator.generateTables(tree));
-		System.out.println(SQLGenerator.fillTables(tree, ntree, query, nquery));
-		//System.out.println(SQLGenerator.generateQuery(tree));
-
+		Map head = new HashMap();
+		head.put(query.getHead().getAttributes().get(0), ntree.getRoot().getAttributes().get(0));
+		head.put(query.getHead().getAttributes().get(1), ntree.getRoot().getAttributes().get(1));
+		System.out.println(SQLGenerator.recursiveFillTables(tree.getRoot(), ntree.getRoot(), head));
+		System.out.println(SQLGenerator.generateQuery(tree));
 	}
 
     public static void executeOnDB(String[] args){
@@ -141,6 +146,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		test();
+//        executeOnDB(args);
         //executeOnDB(args);
 //		testDB();
 	}
