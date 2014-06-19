@@ -36,6 +36,8 @@ public class Query {
 	public ArrayList<Relation> getRelations(){
 		return relations;
 	}
+
+    public Relation getRelation(int i){return this.relations.get(i);}
 	
 	public Relation getHead(){
 		return this.head;
