@@ -187,7 +187,7 @@ public class QueryGenerator {
         result.setHeadToFirstRelation();
 
         for(int i = 0; i < noise; i++){
-            int x = RNG.nextInt(n+1);
+            int x = RNG.nextInt(n);
             Attribute noiseStart = new Attribute(getAttributeName(n+1+i,true));
             Attribute noiseEnd = result.getRelations().get(x).getAttributes().get(0);
             Relation noiseRelation = new Relation("n"+i);
