@@ -42,8 +42,16 @@ public class SQLGenerator {
 		if (node.getChildren().isEmpty()) {
 			sql += "( ";
 		}
+        else{
+            sql += "Exists( ";
+        }
 		for (Node child : node.getChildren()) {
-			sql += "Exists( " + recursiveGenerateQuery(child);
+            if((node.getChildren().indexOf(child) != node.getChildren().size() - 1) &&
+                    (node.getChildren().indexOf(child) != 0)){
+                sql += " AND ";
+            }
+			sql += recursiveGenerateQuery(child);
+
 		}
 		for (Node child : node.getChildren()) {
 			for (Attribute attr : node.getAttributes()) {
@@ -57,6 +65,7 @@ public class SQLGenerator {
 				}
 			}
 			sql += ")";
+
 		}
 		if (!node.getChildren().isEmpty() && node.getChildren().get(0).getChildren().isEmpty()) {
 			sql += ")";
