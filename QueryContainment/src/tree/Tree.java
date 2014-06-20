@@ -43,9 +43,8 @@ public class Tree {
 	}
 	
 	public void print(){
-		this.root.print();
+		this.root.print("", true);
 	}
-
 	/**
 	 * Creates a tree out of the width 2 cyclic query. 
 	 * Works with noise, but noise relations should have a name starting with n (others s).
