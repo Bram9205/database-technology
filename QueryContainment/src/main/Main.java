@@ -49,8 +49,8 @@ public class Main {
         //Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
         long time = System.currentTimeMillis();
 		int k = Integer.parseInt(args[0]);
-        int n = Integer.parseInt(args[0]);
-        int noise = Integer.parseInt(args[1]);
+        int n = Integer.parseInt(args[1]);
+        int noise = Integer.parseInt(args[2]);
         Query query = QueryGenerator.generateCyclicQueryWidthN(k,n,0);
         Query nquery = QueryGenerator.generateCyclicQueryWidthN(k,n,noise);
         //System.out.println("Regular query: " + query.toString());
