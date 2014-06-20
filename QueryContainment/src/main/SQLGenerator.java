@@ -94,8 +94,9 @@ public class SQLGenerator {
 	/**
 	 * Returns all values that should be inserted in the table for node as SQL string
 	 *
-	 * @param nroot
-	 * @param node
+	 * @param node the table that we are inserting in
+	 * @param noisenode along with its children, the values that could be inserted in the table (if valid)
+	 * @param head the mapping from values that should match
 	 * @return
 	 */
 	private static String getFillValues(Node node, Node noiseNode, Map head) {
@@ -117,26 +118,26 @@ public class SQLGenerator {
 				thisResult += separator + "'" + a.getType() + "'";
 				separator = ", ";
 			}
-			if(noiseNode.getAttributes().size() < node.getAttributes().size()){ //Attributes with no matching position just get their matching head values.
+			//Attributes with no matching position just get their matching head values. This assumes they actually are in the head (so far no exceptions)
+			if(noiseNode.getAttributes().size() < node.getAttributes().size()){ 
 				for(int i = noiseNode.getAttributes().size(); i < node.getAttributes().size(); i++){
 					thisResult += separator + "'" + ((Attribute) head.get(node.getAttributes().get(i))).getType() + "'";
 				}
 			}
 			thisResult += ")";
 		}
-		String others = "";
-		for (Node n : noiseNode.getChildren()) {
-			others += getFillValues(node, n, head);
-		}
-		if (!others.equals(";") && !others.isEmpty()) {
-			if(!thisResult.isEmpty()){
-				result += thisResult + ", " + others;
-			} else {
-				result += others;
+		result += thisResult;
+		String separator = (result.isEmpty()) ? "" : ", ";
+		if(noiseNode.getChildren().isEmpty()){ //no children, just return thisResult, which is empty when this node is not a valid row
+			return result;
+		} else { //along with thisResult, the children that match should be returned
+			for (Node n : noiseNode.getChildren()) {
+				String child = getFillValues(node, n, head);
+				if(!child.isEmpty()){
+					result += separator + child;
+					separator = ", ";
+				}
 			}
-		} else {
-
-			result += thisResult;
 		}
 		return result;
 	}
