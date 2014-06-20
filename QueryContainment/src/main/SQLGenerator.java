@@ -34,33 +34,31 @@ public class SQLGenerator {
 	}
 
 	public static String generateQuery(Tree tree) {
-		return recursiveGenerateQuery(tree.getRoot());
+		return recursiveGenerateQuery(tree.getRoot(), null);
 	}
 
-	private static String recursiveGenerateQuery(Node node) {
+	private static String recursiveGenerateQuery(Node node, Node parent) {
 		String sql = "SELECT * FROM " + node.getName() + " WHERE ";
-		if (node.getChildren().isEmpty()) {
-			sql += "( ";
+		String separator = "";;
+		if (!node.getChildren().isEmpty()) {
+			//loop over children, each time do recursive call and add (AND) EXISTS resultofrecursivecall (AND not in first iteration, use separator)
+			for (Node child : node.getChildren()) {
+				sql += separator + "EXISTS (" + recursiveGenerateQuery(child, node) + ") ";
+				separator = "AND ";
+			}
 		}
-		for (Node child : node.getChildren()) {
-			sql += "Exists( " + recursiveGenerateQuery(child);
-		}
-		for (Node child : node.getChildren()) {
-			for (Attribute attr : node.getAttributes()) {
-				for (Attribute chattr : child.getAttributes()) {
-					if (attr.getType().equals(chattr.getType())) {
-						if (!child.getChildren().isEmpty() || child.getAttributes().indexOf(attr) != 0) {
-							sql += " AND ";
-						}    //dont write AND if the child has no children and this is the first child. We write AND if its not the fire child in this iterator.
-						sql += node.getName() + "." + attr.getType() + " = " + child.getName() + "." + attr.getType();
+		//match attributes of node with parent, add AND node.name . attribute = parent.name . attribute etc
+		if (parent != null) {
+			for (Attribute a : node.getAttributes()) {
+				for (Attribute pa : parent.getAttributes()) {
+					if (a == pa) {
+						sql += separator + node.getName() + "." + a.getType() + " = " + parent.getName() + "." + pa.getType() + " ";
+						separator = "AND ";
 					}
 				}
 			}
-			sql += ")";
 		}
-		if (!node.getChildren().isEmpty() && node.getChildren().get(0).getChildren().isEmpty()) {
-			sql += ")";
-		}
+
 		return sql;
 	}
 
@@ -119,8 +117,8 @@ public class SQLGenerator {
 				separator = ", ";
 			}
 			//Attributes with no matching position just get their matching head values. This assumes they actually are in the head (so far no exceptions)
-			if(noiseNode.getAttributes().size() < node.getAttributes().size()){ 
-				for(int i = noiseNode.getAttributes().size(); i < node.getAttributes().size(); i++){
+			if (noiseNode.getAttributes().size() < node.getAttributes().size()) {
+				for (int i = noiseNode.getAttributes().size(); i < node.getAttributes().size(); i++) {
 					thisResult += separator + "'" + ((Attribute) head.get(node.getAttributes().get(i))).getType() + "'";
 				}
 			}
@@ -128,12 +126,12 @@ public class SQLGenerator {
 		}
 		result += thisResult;
 		String separator = (result.isEmpty()) ? "" : ", ";
-		if(noiseNode.getChildren().isEmpty()){ //no children, just return thisResult, which is empty when this node is not a valid row
+		if (noiseNode.getChildren().isEmpty()) { //no children, just return thisResult, which is empty when this node is not a valid row
 			return result;
 		} else { //along with thisResult, the children that match should be returned
 			for (Node n : noiseNode.getChildren()) {
 				String child = getFillValues(node, n, head);
-				if(!child.isEmpty()){
+				if (!child.isEmpty()) {
 					result += separator + child;
 					separator = ", ";
 				}
@@ -141,7 +139,7 @@ public class SQLGenerator {
 		}
 		return result;
 	}
-	
+
 	public static String dropTables(Tree tree) {
 		return recursiveDropTables(tree.getRoot());
 	}
