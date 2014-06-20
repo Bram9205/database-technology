@@ -85,8 +85,9 @@ public class SQLGenerator {
 		//Generate the part containing the values
 		result += getFillValues(node, noiseRoot, head);
 		for (Node n : node.getChildren()) {
-			result += recursiveFillTables(n, noiseRoot, head);
+			result += "; " + recursiveFillTables(n, noiseRoot, head);
 		}
+
 		return result;
 	}
 
@@ -134,7 +135,8 @@ public class SQLGenerator {
 				result += others;
 			}
 		} else {
-			result += thisResult + ";";
+
+			result += thisResult;
 		}
 		return result;
 	}
