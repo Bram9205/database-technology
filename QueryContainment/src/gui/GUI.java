@@ -81,7 +81,7 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Query Containment Check");
 
-        spn_k.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
+        spn_k.setModel(new javax.swing.SpinnerNumberModel(1, 1, 3, 1));
 
         jLabel1.setText("Degree of cyclicity (k):");
 
