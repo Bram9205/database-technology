@@ -39,7 +39,7 @@ public class SQLGenerator {
 
 	private static String recursiveGenerateQuery(Node node, Node parent) {
 		String sql = "SELECT * FROM " + node.getName() + " WHERE ";
-		String separator = "";;
+		String separator = "";
 		if (!node.getChildren().isEmpty()) {
 			//loop over children, each time do recursive call and add (AND) EXISTS resultofrecursivecall (AND not in first iteration, use separator)
 			for (Node child : node.getChildren()) {

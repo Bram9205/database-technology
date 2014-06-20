@@ -11,8 +11,8 @@ import java.util.Map;
 public class Main {	
 	
 	private static void test(){
-		Query query = QueryGenerator.generateCyclicQueryWidthN(3,5,0);
-		Query nquery = QueryGenerator.generateCyclicQueryWidthN(3,5,1);
+		Query query = QueryGenerator.generateCyclicQueryWidthN(3,4,0);
+		Query nquery = QueryGenerator.generateCyclicQueryWidthN(3,4,1);
 		System.out.println("Regular query: " + query.toString());
 		System.out.println("Noised query: " + nquery.toString());
 		Tree tree = Tree.createFromCyclicQueryWidthN(query);
