@@ -30,20 +30,33 @@ public class Main {
 		System.out.println(SQLGenerator.recursiveFillTables(tree.getRoot(), ntree.getRoot(), head));
 		System.out.println(SQLGenerator.generateQuery(tree));
 	}
+	
+	public static String getSQL(int n, int k, int noise){
+		String result = "";
+		Query query = QueryGenerator.generateCyclicQueryWidthN(k, n, 0);
+		Query query2 = QueryGenerator.generateCyclicQueryWidthN(k, n, noise);
+		Tree tree = Tree.createFromCyclicQueryWidthN(query);
+		Tree tree2 = Tree.createFromCyclicQueryWidthN(query2);
+		result += SQLGenerator.generateTables(tree);
+		result += "\n\n" + SQLGenerator.fillTables(tree, tree2, query, query2);
+		result += "\n\n" + SQLGenerator.generateQuery(tree);
+		return result;
+	}
 
-    public static void executeOnDB(String[] args){
+    public static boolean executeOnDB(String[] args) throws SQLException{
         Database database = new Database();
         //Query query = QueryGenerator.generateCyclicQueryWidth2(4);
         //Query nquery = QueryGenerator.generateCyclicQueryWidth2(4,1);
         long time = System.currentTimeMillis();
-        int inputA = Integer.parseInt(args[0]);
-        int inputB = Integer.parseInt(args[1]);
-        Query query = QueryGenerator.generateCyclicQueryWidth2(inputA,0);
-        Query nquery = QueryGenerator.generateCyclicQueryWidth2(inputA,inputB);
+		int k = Integer.parseInt(args[0]);
+        int n = Integer.parseInt(args[0]);
+        int noise = Integer.parseInt(args[1]);
+        Query query = QueryGenerator.generateCyclicQueryWidthN(k,n,0);
+        Query nquery = QueryGenerator.generateCyclicQueryWidthN(k,n,noise);
         //System.out.println("Regular query: " + query.toString());
         //System.out.println("Noised query: " + nquery.toString());
-        Tree tree = Tree.createFromCyclicQueryWidth2(query);
-        Tree ntree = Tree.createFromCyclicQueryWidth2(nquery);
+        Tree tree = Tree.createFromCyclicQueryWidthN(query);
+        Tree ntree = Tree.createFromCyclicQueryWidthN(nquery);
         System.out.print("Time generating data: " + (System.currentTimeMillis()-time));
         time = System.currentTimeMillis();
         //System.out.println("Regular tree: " + tree.toString());
@@ -59,7 +72,7 @@ public class Main {
         time = System.currentTimeMillis();
 
 
-        database.query(SQLGenerator.generateQuery(tree));
+        boolean result = database.query(SQLGenerator.generateQuery(tree));
         System.out.print(" | Executing query: " + (System.currentTimeMillis()-time));
         time = System.currentTimeMillis();
 
@@ -71,7 +84,7 @@ public class Main {
         System.out.print(" | Cleaning up: " + (System.currentTimeMillis()-time) + "\n");
         time = System.currentTimeMillis();
 
-
+		return result;
     }
 
 	private static void testDB(){

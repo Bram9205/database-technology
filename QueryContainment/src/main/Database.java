@@ -7,6 +7,7 @@ import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -18,7 +19,7 @@ public class Database {
     String urltmp = "jdbc:postgresql://localhost/temp";
     String username = "postgres";
     String password = "fletcher";
-    public Database(){
+    public Database() throws SQLException {
        // try {
             //System.out.println("Loading driver...");
             //Class.forName("com.postgresql.jdbc.Driver");
@@ -28,18 +29,13 @@ public class Database {
        // }
 
 
-        try {
             connection = DriverManager.getConnection(url, username, password);
             Statement stmt = connection.createStatement();
             //stmt.executeUpdate("DROP DATABASE IF EXISTS querydb;");
             //stmt.executeUpdate("CREATE DATABASE querydb;");
             //stmt.executeUpdate("USE querydb;");
-        }
-        catch (Exception e){
-            System.out.println(e);
-            System.out.println("Did not connect to database");
-            System.exit(1);}
-        }
+        
+     }
 
     public void updateDB(String sql){
         try {
