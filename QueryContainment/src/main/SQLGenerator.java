@@ -64,7 +64,9 @@ public class SQLGenerator {
 					}
 				}
 			}
-			sql += ")";
+            if((node.getChildren().size() == 1) || (node.getChildren().indexOf(child) == node.getChildren().size() -1 )){
+                sql += ")";
+        }
 
 		}
 		if (!node.getChildren().isEmpty() && node.getChildren().get(0).getChildren().isEmpty()) {
