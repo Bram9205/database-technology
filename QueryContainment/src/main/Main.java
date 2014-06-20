@@ -156,11 +156,13 @@ public class Main {
             if (connection != null) try { connection.close(); } catch (SQLException ignore) {}
         }
 	}
-	
+
 	public static void main(String[] args){
-		test();
-//        executeOnDB(args);
-        //executeOnDB(args);
+		//test();
+        try {
+            executeOnDB(args);
+        }
+        catch (SQLException e){}
 //		testDB();
 	}
 }
